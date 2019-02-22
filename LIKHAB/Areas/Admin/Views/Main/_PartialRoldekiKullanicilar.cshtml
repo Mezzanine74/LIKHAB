@@ -1,0 +1,54 @@
+﻿@model string
+
+@{
+        LIKHAB.Models.db.LIHKAB_dbEntities db = new LIKHAB.Models.db.LIHKAB_dbEntities();
+        var source = from c in db.AspNetUserRoles join d in db.AspNetUsers on c.UserId equals d.Id select c ;
+        var sourceBindList = db.AspNetUsers.Select(c => new { c.Id, c.AdiSoyadi });
+        var sourceBindSelected = from c in db.AspNetUserRoles join d in db.AspNetUsers on c.UserId equals d.Id where c.RoleId == Model select d.AdiSoyadi;
+    }
+
+<script>
+
+    function onTokensChanged(s, e, roleId) {
+        var newTokenCollection = s.GetTokenCollection();
+
+        console.log(newTokenCollection);
+        console.log(roleId);
+
+        getTokens = function () {
+            return {
+                usersinRole: s.GetTokenCollection(),
+                roleId: roleId
+            }
+        }
+
+        $.ajax({
+            url: '@LIKHAB.Codes.Helpers.HelperClasses.LocalHost.getProcessRolesUsers()',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(getTokens()),
+            success: function (result) {
+                console.log(result);
+                DevExpress.ui.notify(result);
+            },
+            fail: function () {
+                console.log('failed');
+            },
+            complete: function () {
+                console.log('completed');
+            }
+        });
+    }
+
+</script>
+
+@Html.DevExpress().TokenBox(
+   settings =>
+   {
+       settings.Name = "tokenBox" + Model;
+       settings.Width = System.Web.UI.WebControls.Unit.Pixel(300);
+       settings.Properties.TextField = "AdiSoyadi";
+       settings.Properties.ValueField = "Id";
+       settings.Properties.ClientSideEvents.TokensChanged = "function(s,e,roleId){onTokensChanged(s, e, '" + Model + "')}";
+   }
+).BindList(sourceBindList.ToList()).Bind(sourceBindSelected.ToList()).GetHtml()

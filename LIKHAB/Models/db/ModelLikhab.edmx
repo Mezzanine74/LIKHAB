@@ -1,0 +1,2757 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LIHKAB_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Note" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Ayarlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BankaBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Banka" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Iban" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmailKayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kime" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="255" />
+          <Property Name="Body" Type="nvarchar(max)" />
+          <Property Name="NeZaman" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Ilce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Il" Type="int" Nullable="false" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ili">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Il" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IlKatsayisi" Type="numeric" Precision="15" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsAsamalari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsId" Type="int" Nullable="false" />
+          <Property Name="OnayaGidisZamani" Type="datetime" />
+          <Property Name="Onaylanmis" Type="bit" Nullable="false" />
+          <Property Name="OnayZamani" Type="datetime" />
+          <Property Name="Fatura" Type="bit" Nullable="false" />
+          <Property Name="FaturaWhen" Type="datetime" />
+          <Property Name="Olcum" Type="bit" Nullable="false" />
+          <Property Name="OlcumWhen" Type="datetime" />
+          <Property Name="Kontrol" Type="bit" Nullable="false" />
+          <Property Name="KontrolWhen" Type="datetime" />
+          <Property Name="BeldEvrGeldi" Type="bit" Nullable="false" />
+          <Property Name="BeldEvrGeldiWhen" Type="datetime" />
+          <Property Name="BeldEvrGitti" Type="bit" Nullable="false" />
+          <Property Name="BeldEvrGittiWhen" Type="datetime" />
+          <Property Name="KadEvrGeldi" Type="bit" Nullable="false" />
+          <Property Name="KadEvrGeldiWhen" Type="datetime" />
+          <Property Name="KadEvrGitti" Type="bit" Nullable="false" />
+          <Property Name="KadEvrGittiWhen" Type="datetime" />
+          <Property Name="ProjeYapildi" Type="bit" Nullable="false" />
+          <Property Name="ProjeYapildiWhen" Type="datetime" />
+          <Property Name="OdemeAlindi" Type="bit" Nullable="false" />
+          <Property Name="OdemeAlindiWhen" Type="datetime" />
+          <Property Name="IsKapandi" Type="bit" Nullable="false" />
+          <Property Name="IsKapandiWhen" Type="datetime" />
+          <Property Name="MusteriyiBilgilendir" Type="bit" Nullable="false" />
+          <Property Name="MusteriyiBilgilendirWhen" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+          <Property Name="WhenUpdated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IsBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" Nullable="false" />
+          <Property Name="Yili" Type="int" Nullable="false" />
+          <Property Name="FenKayitNo" Type="int" Nullable="false" />
+          <Property Name="FenKayitTarihi" Type="smalldatetime" />
+          <Property Name="PaftaNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdaNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParselNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="Takipci" Type="nvarchar" MaxLength="100" />
+          <Property Name="Maliki" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Cinsi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ilgilenen" Type="nvarchar" MaxLength="200" />
+          <Property Name="FaturaNo" Type="nvarchar" MaxLength="200" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IsinCinsi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FenKayitNoSifirMi" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Isler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsinCinsi" Type="int" Nullable="false" />
+          <Property Name="Koyu_Mahallesi" Type="int" Nullable="false" />
+          <Property Name="IsinTuru" Type="int" />
+          <Property Name="KadastroyaAsliGibiVerilecek" Type="bit" />
+          <Property Name="Stopaj" Type="bit" />
+          <Property Name="Tevkifatli" Type="bit" />
+          <Property Name="KentselDonusum" Type="bit" />
+          <Property Name="YolKilometre" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="YolUcretiniElleGir" Type="bit" />
+          <Property Name="Musteri" Type="int" Nullable="false" />
+          <Property Name="MusteriTemsilDurumu" Type="nvarchar" MaxLength="100" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+          <Property Name="WhenUpdated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IsParametreleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" Nullable="false" />
+          <Property Name="YuzOlcumu" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AplikasyonKrokisiSayisi" Type="int" />
+          <Property Name="ParselSayisi" Type="int" />
+          <Property Name="NoktaSayisi" Type="int" />
+          <Property Name="ParselAlani" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="BinaTabanAlani" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="InsaatAlani" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="BagimsizBolumSayisi" Type="int" />
+          <Property Name="BinaSayisi" Type="int" />
+          <Property Name="PlanOrnegi" Type="int" />
+          <Property Name="KatSayisi" Type="int" />
+          <Property Name="B_Bolum" Type="int" />
+          <Property Name="OdaKatsayi" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AraziyeGidilecekmi" Type="bit" />
+          <Property Name="AyniKisiyeAit" Type="bit" />
+          <Property Name="OdaBirimFiyatlariniKullan" Type="bit" />
+          <Property Name="Yuzde50CarpanUygula" Type="bit" />
+          <Property Name="YolUcreti" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IsTurleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Koy_Mahalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ilce" Type="int" Nullable="false" />
+          <Property Name="Koy_Mahalle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="YolKilometre" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LisansliBuroBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KimlikNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="200" />
+          <Property Name="Unvani" Type="nvarchar" MaxLength="200" />
+          <Property Name="LisansliBuroNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LisansliBelgeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OdaSicilNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ili" Type="nvarchar" MaxLength="100" />
+          <Property Name="Adresi" Type="nvarchar" MaxLength="256" />
+          <Property Name="Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eposta" Type="nvarchar" MaxLength="50" />
+          <Property Name="Websayfasi" Type="nvarchar" MaxLength="50" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ilcesi" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TCkimlik_VergiNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VergiDairesi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Faks" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eposta" Type="nvarchar" MaxLength="50" />
+          <Property Name="TemsilDurumu" Type="int" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar" MaxLength="256" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="MusteriTemsilDurumu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="StopajdaGoster" Type="bit" Nullable="false" />
+          <Property Name="IsBilgilerindeZorunluTip" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Onaylar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OnayKodu" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="OnaylananSatirId" Type="int" Nullable="false" />
+          <Property Name="OnayZamani" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OnayTuru">
+          <Key>
+            <PropertyRef Name="OnayKodu" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OnayKodu" Type="int" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnayTuruOnayVerecekKisi">
+          <Key>
+            <PropertyRef Name="OnayKodu" />
+            <PropertyRef Name="OnayVerecekUserId" />
+          </Key>
+          <Property Name="OnayKodu" Type="int" Nullable="false" />
+          <Property Name="OnayVerecekUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OnayVerecekKisi">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Randevu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="AllDay" Type="bit" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Label" Type="int" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="RandevuIlkHali">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="AllDay" Type="bit" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Label" Type="int" />
+          <Property Name="VerilisZamani" Type="datetime" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="256" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UcretAyarlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsDetayi" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UcretKodu" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Kullan" Type="bit" Nullable="false" />
+          <Property Name="Parametre" Type="numeric" Precision="18" Scale="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UcretDokumu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" />
+          <Property Name="YolUcreti" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="DenetimUcreti" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="DamgaVergisi" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="BelgeUcreti" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="KontrolUcreti" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="Toplam" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="ToplamBrutUcret" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="Stopaj20percent" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="KesintilerToplami" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="GenelToplam" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="KDV18percent" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="TevkifEdilenKDV" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="TahsilEdilenKDV" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="NetAlinan" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="AlinacakGenelToplam" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="WhenUpdated" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.View_IsAsamalari' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_IsAsamalari">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="IsId" Type="int" Nullable="false" />
+          <Property Name="OnayaGidisZamani" Type="datetime" />
+          <Property Name="Onaylanmis" Type="bit" Nullable="false" />
+          <Property Name="OnayZamani" Type="datetime" />
+          <Property Name="Randevu" Type="bit" />
+          <Property Name="RandevuWhen" Type="datetime" />
+          <Property Name="Fatura" Type="bit" Nullable="false" />
+          <Property Name="FaturaWhen" Type="datetime" />
+          <Property Name="Olcum" Type="bit" Nullable="false" />
+          <Property Name="OlcumWhen" Type="datetime" />
+          <Property Name="Kontrol" Type="bit" Nullable="false" />
+          <Property Name="KontrolWhen" Type="datetime" />
+          <Property Name="BeldEvrGeldi" Type="bit" Nullable="false" />
+          <Property Name="BeldEvrGeldiWhen" Type="datetime" />
+          <Property Name="BeldEvrGitti" Type="bit" Nullable="false" />
+          <Property Name="BeldEvrGittiWhen" Type="datetime" />
+          <Property Name="KadEvrGeldi" Type="bit" Nullable="false" />
+          <Property Name="KadEvrGeldiWhen" Type="datetime" />
+          <Property Name="KadEvrGitti" Type="bit" Nullable="false" />
+          <Property Name="KadEvrGittiWhen" Type="datetime" />
+          <Property Name="ProjeYapildi" Type="bit" Nullable="false" />
+          <Property Name="ProjeYapildiWhen" Type="datetime" />
+          <Property Name="OdemeAlindi" Type="bit" Nullable="false" />
+          <Property Name="OdemeAlindiWhen" Type="datetime" />
+          <Property Name="IsKapandi" Type="bit" Nullable="false" />
+          <Property Name="IsKapandiWhen" Type="datetime" />
+          <Property Name="MusteriyiBilgilendir" Type="bit" Nullable="false" />
+          <Property Name="MusteriyiBilgilendirWhen" Type="datetime" />
+          <Property Name="WhoCreated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhoUpdated" Type="nvarchar" MaxLength="50" />
+          <Property Name="WhenCreated" Type="datetime" />
+          <Property Name="WhenUpdated" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.View_RaporSozlesme' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_RaporSozlesme">
+          <Key>
+            <PropertyRef Name="IsId" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="IsId" Type="int" Nullable="false" />
+          <Property Name="IlinAdi" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Koy_Mahalle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsSahibi" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsSahibiVeUnvani" Type="nvarchar" MaxLength="301" />
+          <Property Name="MusteriTemsilDurumuIsler" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsinCinsiTanim" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="RandevuZamani" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Toplam" Type="nvarchar" MaxLength="4000" />
+          <Property Name="KDV" Type="nvarchar" MaxLength="4000" />
+          <Property Name="GenelToplam" Type="nvarchar" MaxLength="4000" />
+          <Property Name="MalikiIBAdiSoyadi" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IsSahibiTCkimlik_VergiNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsSahibiTelefon1" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsSahibiAdress" Type="nvarchar" MaxLength="256" />
+          <Property Name="LisansSahibi_AdiSoyadi" Type="nvarchar" MaxLength="200" />
+          <Property Name="LisansliBuroNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LisansliBelgeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="OdaSicilNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="LisansSahibiIli" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdaParselNo" Type="nvarchar" MaxLength="201" Nullable="false" />
+          <Property Name="PaftaNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="FenKayitTarihiNo" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FenKayitTarihi" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="FenKayitTarihiGUN" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FenKayitTarihiAY" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FenKayitTarihiYIL" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Yuzolcumu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="IsinCinsiId" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewFenKayitSonrakiNumara' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewFenKayitSonrakiNumara">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="Yil" />
+            <PropertyRef Name="IlceId" />
+          </Key>
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Yil" Type="int" Nullable="false" />
+          <Property Name="IlceId" Type="int" Nullable="false" />
+          <Property Name="VerilecekFenKayitNo" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewIsinKucukDetayi' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewIsinKucukDetayi">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="IsinCinsi" />
+            <PropertyRef Name="AdiSoyadi" />
+          </Key>
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="IsinCinsi" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MusteriTemsilDurumu" Type="nvarchar" MaxLength="50" />
+          <Property Name="AlinacakGenelToplam" Type="numeric" Precision="12" Scale="2" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewRandevuGenelOnayDurumu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewRandevuGenelOnayDurumu">
+          <Key>
+            <PropertyRef Name="RandevuId" />
+            
+            
+          </Key>
+          <Property Name="RandevuId" Type="int" Nullable="false" />
+          <Property Name="GerekenOnaySayisi" Type="int" />
+          <Property Name="OnaySayisi" Type="int" Nullable="false" />
+          <Property Name="Onaylanmis" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewRandevularIsBilgisiOlmayan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewRandevularIsBilgisiOlmayan">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewRandevuOnayDurumu' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewRandevuOnayDurumu">
+          <Key>
+            
+            
+            
+            
+            
+            <PropertyRef Name="UniqueId" />
+          </Key>
+          <Property Name="UniqueId" Type="bigint" Nullable="false" />
+          <Property Name="RandevuId" Type="int" Nullable="false" />
+          <Property Name="OnayId" Type="int" />
+          <Property Name="OnayKodu" Type="int" Nullable="false" />
+          <Property Name="OnayVerecekUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OnayZamani" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewRandevuTalebiReportDetail' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewRandevuTalebiReportDetail">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="Tanim" />
+            <PropertyRef Name="AdiSoyadi" />
+            <PropertyRef Name="Il" />
+            <PropertyRef Name="Ilce" />
+            <PropertyRef Name="Koy_Mahalle" />
+            <PropertyRef Name="isId" />
+            <PropertyRef Name="RandevuId" />
+          </Key>
+          <Property Name="UniqueId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="AdiSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Il" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ilce" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Koy_Mahalle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="500" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="isId" Type="int" Nullable="false" />
+          <Property Name="RandevuId" Type="int" Nullable="false" />
+          <Property Name="IsiOlusturan" Type="nvarchar" MaxLength="50" />
+          <Property Name="RandevuyuVeren" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'LIHKAB_db.dbo.ViewTeslimSenedi' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewTeslimSenedi">
+          <Key>
+            <PropertyRef Name="isId" />
+          </Key>
+          <Property Name="isId" Type="int" Nullable="false" />
+          <Property Name="Cinsi" Type="nvarchar" MaxLength="18" Nullable="false" />
+          <Property Name="Koy_Mahalle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PaftaNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="AdaNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParselNo" Type="nvarchar" MaxLength="100" />
+          <Property Name="YuzOlcumu" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Tanim" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FenKayitTarihi" Type="nvarchar" MaxLength="4000" />
+          <Property Name="FenKayitTarihiGUN" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FenKayitTarihiAY" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="FenKayitTarihiYIL" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="LisansliBuroSahibi" Type="nvarchar" MaxLength="200" />
+          <Property Name="LisansliBuroSahibiUnvani" Type="nvarchar" MaxLength="200" />
+          <Property Name="isSahibi" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="BirimFiyati" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ToplamFiyat" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ilce_Ili">
+          <End Role="Ili" Type="Self.Ili" Multiplicity="1" />
+          <End Role="Ilce" Type="Self.Ilce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ili">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ilce">
+              <PropertyRef Name="Il" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_IsinCinsi">
+          <End Role="IsinCinsi" Type="Self.IsinCinsi" Multiplicity="1" />
+          <End Role="Isler" Type="Self.Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsinCinsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="IsinCinsi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_IsTurleri">
+          <End Role="IsTurleri" Type="Self.IsTurleri" Multiplicity="0..1" />
+          <End Role="Isler" Type="Self.Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsTurleri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="IsinTuru" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_Koy_Mahalle">
+          <End Role="Koy_Mahalle" Type="Self.Koy_Mahalle" Multiplicity="1" />
+          <End Role="Isler" Type="Self.Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Koy_Mahalle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="Koyu_Mahallesi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_Musteri">
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="1" />
+          <End Role="Isler" Type="Self.Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="Musteri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IsAsamalari_Isler">
+          <End Role="Isler" Type="Self.Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IsAsamalari" Type="Self.IsAsamalari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsAsamalari">
+              <PropertyRef Name="IsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IsBilgileri_Is">
+          <End Role="Isler" Type="Self.Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IsBilgileri" Type="Self.IsBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsBilgileri">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IsParametreleri_Isler">
+          <End Role="Isler" Type="Self.Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IsParametreleri" Type="Self.IsParametreleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsParametreleri">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Koy_Mahalle_Ilce">
+          <End Role="Ilce" Type="Self.Ilce" Multiplicity="1" />
+          <End Role="Koy_Mahalle" Type="Self.Koy_Mahalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ilce">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Koy_Mahalle">
+              <PropertyRef Name="Ilce" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_MusteriTemsilDurumu">
+          <End Role="MusteriTemsilDurumu" Type="Self.MusteriTemsilDurumu" Multiplicity="1" />
+          <End Role="Musteri" Type="Self.Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MusteriTemsilDurumu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="TemsilDurumu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Onaylar_OnayTuruOnayVerecekKisi">
+          <End Role="OnayTuruOnayVerecekKisi" Type="Self.OnayTuruOnayVerecekKisi" Multiplicity="1" />
+          <End Role="Onaylar" Type="Self.Onaylar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayKodu" />
+              <PropertyRef Name="OnayVerecekUserId" />
+            </Principal>
+            <Dependent Role="Onaylar">
+              <PropertyRef Name="OnayKodu" />
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnayTuruOnayVerecekKisi_OnayTuru">
+          <End Role="OnayTuru" Type="Self.OnayTuru" Multiplicity="1" />
+          <End Role="OnayTuruOnayVerecekKisi" Type="Self.OnayTuruOnayVerecekKisi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayTuru">
+              <PropertyRef Name="OnayKodu" />
+            </Principal>
+            <Dependent Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayKodu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi">
+          <End Role="OnayVerecekKisi" Type="Self.OnayVerecekKisi" Multiplicity="1" />
+          <End Role="OnayTuruOnayVerecekKisi" Type="Self.OnayTuruOnayVerecekKisi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayVerecekKisi">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayVerecekUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnayVerecekKisi_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="OnayVerecekKisi" Type="Self.OnayVerecekKisi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnayVerecekKisi">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevu_Isler">
+          <End Role="Isler" Type="Self.Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Randevu" Type="Self.Randevu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Randevu">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcretDokumu_Isler">
+          <End Role="Isler" Type="Self.Isler" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UcretDokumu" Type="Self.UcretDokumu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UcretDokumu">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LIHKAB_dbModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ayarlar" EntityType="Self.Ayarlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BankaBilgileri" EntityType="Self.BankaBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailKayitlari" EntityType="Self.EmailKayitlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ilce" EntityType="Self.Ilce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ili" EntityType="Self.Ili" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsAsamalari" EntityType="Self.IsAsamalari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsBilgileri" EntityType="Self.IsBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsinCinsi" EntityType="Self.IsinCinsi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Isler" EntityType="Self.Isler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsParametreleri" EntityType="Self.IsParametreleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IsTurleri" EntityType="Self.IsTurleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Koy_Mahalle" EntityType="Self.Koy_Mahalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LisansliBuroBilgileri" EntityType="Self.LisansliBuroBilgileri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Musteri" EntityType="Self.Musteri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MusteriTemsilDurumu" EntityType="Self.MusteriTemsilDurumu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Onaylar" EntityType="Self.Onaylar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnayTuru" EntityType="Self.OnayTuru" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnayTuruOnayVerecekKisi" EntityType="Self.OnayTuruOnayVerecekKisi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OnayVerecekKisi" EntityType="Self.OnayVerecekKisi" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Randevu" EntityType="Self.Randevu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RandevuIlkHali" EntityType="Self.RandevuIlkHali" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcretAyarlari" EntityType="Self.UcretAyarlari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UcretDokumu" EntityType="Self.UcretDokumu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_IsAsamalari" EntityType="Self.View_IsAsamalari" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_IsAsamalari].[UniqueId] AS [UniqueId], 
+    [View_IsAsamalari].[id] AS [id], 
+    [View_IsAsamalari].[IsId] AS [IsId], 
+    [View_IsAsamalari].[OnayaGidisZamani] AS [OnayaGidisZamani], 
+    [View_IsAsamalari].[Onaylanmis] AS [Onaylanmis], 
+    [View_IsAsamalari].[OnayZamani] AS [OnayZamani], 
+    [View_IsAsamalari].[Randevu] AS [Randevu], 
+    [View_IsAsamalari].[RandevuWhen] AS [RandevuWhen], 
+    [View_IsAsamalari].[Fatura] AS [Fatura], 
+    [View_IsAsamalari].[FaturaWhen] AS [FaturaWhen], 
+    [View_IsAsamalari].[Olcum] AS [Olcum], 
+    [View_IsAsamalari].[OlcumWhen] AS [OlcumWhen], 
+    [View_IsAsamalari].[Kontrol] AS [Kontrol], 
+    [View_IsAsamalari].[KontrolWhen] AS [KontrolWhen], 
+    [View_IsAsamalari].[BeldEvrGeldi] AS [BeldEvrGeldi], 
+    [View_IsAsamalari].[BeldEvrGeldiWhen] AS [BeldEvrGeldiWhen], 
+    [View_IsAsamalari].[BeldEvrGitti] AS [BeldEvrGitti], 
+    [View_IsAsamalari].[BeldEvrGittiWhen] AS [BeldEvrGittiWhen], 
+    [View_IsAsamalari].[KadEvrGeldi] AS [KadEvrGeldi], 
+    [View_IsAsamalari].[KadEvrGeldiWhen] AS [KadEvrGeldiWhen], 
+    [View_IsAsamalari].[KadEvrGitti] AS [KadEvrGitti], 
+    [View_IsAsamalari].[KadEvrGittiWhen] AS [KadEvrGittiWhen], 
+    [View_IsAsamalari].[ProjeYapildi] AS [ProjeYapildi], 
+    [View_IsAsamalari].[ProjeYapildiWhen] AS [ProjeYapildiWhen], 
+    [View_IsAsamalari].[OdemeAlindi] AS [OdemeAlindi], 
+    [View_IsAsamalari].[OdemeAlindiWhen] AS [OdemeAlindiWhen], 
+    [View_IsAsamalari].[IsKapandi] AS [IsKapandi], 
+    [View_IsAsamalari].[IsKapandiWhen] AS [IsKapandiWhen], 
+    [View_IsAsamalari].[MusteriyiBilgilendir] AS [MusteriyiBilgilendir], 
+    [View_IsAsamalari].[MusteriyiBilgilendirWhen] AS [MusteriyiBilgilendirWhen], 
+    [View_IsAsamalari].[WhoCreated] AS [WhoCreated], 
+    [View_IsAsamalari].[WhoUpdated] AS [WhoUpdated], 
+    [View_IsAsamalari].[WhenCreated] AS [WhenCreated], 
+    [View_IsAsamalari].[WhenUpdated] AS [WhenUpdated]
+    FROM [dbo].[View_IsAsamalari] AS [View_IsAsamalari]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_RaporSozlesme" EntityType="Self.View_RaporSozlesme" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_RaporSozlesme].[IsId] AS [IsId], 
+    [View_RaporSozlesme].[IlinAdi] AS [IlinAdi], 
+    [View_RaporSozlesme].[Ilce] AS [Ilce], 
+    [View_RaporSozlesme].[Koy_Mahalle] AS [Koy_Mahalle], 
+    [View_RaporSozlesme].[IsSahibi] AS [IsSahibi], 
+    [View_RaporSozlesme].[IsSahibiVeUnvani] AS [IsSahibiVeUnvani], 
+    [View_RaporSozlesme].[MusteriTemsilDurumuIsler] AS [MusteriTemsilDurumuIsler], 
+    [View_RaporSozlesme].[IsinCinsiTanim] AS [IsinCinsiTanim], 
+    [View_RaporSozlesme].[RandevuZamani] AS [RandevuZamani], 
+    [View_RaporSozlesme].[Toplam] AS [Toplam], 
+    [View_RaporSozlesme].[KDV] AS [KDV], 
+    [View_RaporSozlesme].[GenelToplam] AS [GenelToplam], 
+    [View_RaporSozlesme].[MalikiIBAdiSoyadi] AS [MalikiIBAdiSoyadi], 
+    [View_RaporSozlesme].[IsSahibiTCkimlik_VergiNo] AS [IsSahibiTCkimlik_VergiNo], 
+    [View_RaporSozlesme].[IsSahibiTelefon1] AS [IsSahibiTelefon1], 
+    [View_RaporSozlesme].[IsSahibiAdress] AS [IsSahibiAdress], 
+    [View_RaporSozlesme].[LisansSahibi_AdiSoyadi] AS [LisansSahibi_AdiSoyadi], 
+    [View_RaporSozlesme].[LisansliBuroNo] AS [LisansliBuroNo], 
+    [View_RaporSozlesme].[LisansliBelgeNo] AS [LisansliBelgeNo], 
+    [View_RaporSozlesme].[OdaSicilNo] AS [OdaSicilNo], 
+    [View_RaporSozlesme].[LisansSahibiIli] AS [LisansSahibiIli], 
+    [View_RaporSozlesme].[AdaParselNo] AS [AdaParselNo], 
+    [View_RaporSozlesme].[PaftaNo] AS [PaftaNo], 
+    [View_RaporSozlesme].[FenKayitTarihiNo] AS [FenKayitTarihiNo], 
+    [View_RaporSozlesme].[FenKayitTarihi] AS [FenKayitTarihi], 
+    [View_RaporSozlesme].[FenKayitTarihiGUN] AS [FenKayitTarihiGUN], 
+    [View_RaporSozlesme].[FenKayitTarihiAY] AS [FenKayitTarihiAY], 
+    [View_RaporSozlesme].[FenKayitTarihiYIL] AS [FenKayitTarihiYIL], 
+    [View_RaporSozlesme].[Yuzolcumu] AS [Yuzolcumu], 
+    [View_RaporSozlesme].[IsinCinsiId] AS [IsinCinsiId]
+    FROM [dbo].[View_RaporSozlesme] AS [View_RaporSozlesme]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewFenKayitSonrakiNumara" EntityType="Self.ViewFenKayitSonrakiNumara" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewFenKayitSonrakiNumara].[UniqueId] AS [UniqueId], 
+    [ViewFenKayitSonrakiNumara].[Yil] AS [Yil], 
+    [ViewFenKayitSonrakiNumara].[IlceId] AS [IlceId], 
+    [ViewFenKayitSonrakiNumara].[VerilecekFenKayitNo] AS [VerilecekFenKayitNo]
+    FROM [dbo].[ViewFenKayitSonrakiNumara] AS [ViewFenKayitSonrakiNumara]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewIsinKucukDetayi" EntityType="Self.ViewIsinKucukDetayi" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewIsinKucukDetayi].[UniqueId] AS [UniqueId], 
+    [ViewIsinKucukDetayi].[id] AS [id], 
+    [ViewIsinKucukDetayi].[IsinCinsi] AS [IsinCinsi], 
+    [ViewIsinKucukDetayi].[AdiSoyadi] AS [AdiSoyadi], 
+    [ViewIsinKucukDetayi].[MusteriTemsilDurumu] AS [MusteriTemsilDurumu], 
+    [ViewIsinKucukDetayi].[AlinacakGenelToplam] AS [AlinacakGenelToplam]
+    FROM [dbo].[ViewIsinKucukDetayi] AS [ViewIsinKucukDetayi]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewRandevuGenelOnayDurumu" EntityType="Self.ViewRandevuGenelOnayDurumu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewRandevuGenelOnayDurumu].[RandevuId] AS [RandevuId], 
+    [ViewRandevuGenelOnayDurumu].[GerekenOnaySayisi] AS [GerekenOnaySayisi], 
+    [ViewRandevuGenelOnayDurumu].[OnaySayisi] AS [OnaySayisi], 
+    [ViewRandevuGenelOnayDurumu].[Onaylanmis] AS [Onaylanmis]
+    FROM [dbo].[ViewRandevuGenelOnayDurumu] AS [ViewRandevuGenelOnayDurumu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewRandevularIsBilgisiOlmayan" EntityType="Self.ViewRandevularIsBilgisiOlmayan" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewRandevularIsBilgisiOlmayan].[UniqueId] AS [UniqueId], 
+    [ViewRandevularIsBilgisiOlmayan].[id] AS [id]
+    FROM [dbo].[ViewRandevularIsBilgisiOlmayan] AS [ViewRandevularIsBilgisiOlmayan]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewRandevuOnayDurumu" EntityType="Self.ViewRandevuOnayDurumu" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewRandevuOnayDurumu].[UniqueId] AS [UniqueId], 
+    [ViewRandevuOnayDurumu].[RandevuId] AS [RandevuId], 
+    [ViewRandevuOnayDurumu].[OnayId] AS [OnayId], 
+    [ViewRandevuOnayDurumu].[OnayKodu] AS [OnayKodu], 
+    [ViewRandevuOnayDurumu].[OnayVerecekUserId] AS [OnayVerecekUserId], 
+    [ViewRandevuOnayDurumu].[UserName] AS [UserName], 
+    [ViewRandevuOnayDurumu].[AdiSoyadi] AS [AdiSoyadi], 
+    [ViewRandevuOnayDurumu].[OnayZamani] AS [OnayZamani]
+    FROM [dbo].[ViewRandevuOnayDurumu] AS [ViewRandevuOnayDurumu]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewRandevuTalebiReportDetail" EntityType="Self.ViewRandevuTalebiReportDetail" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewRandevuTalebiReportDetail].[UniqueId] AS [UniqueId], 
+    [ViewRandevuTalebiReportDetail].[Tanim] AS [Tanim], 
+    [ViewRandevuTalebiReportDetail].[AdiSoyadi] AS [AdiSoyadi], 
+    [ViewRandevuTalebiReportDetail].[Il] AS [Il], 
+    [ViewRandevuTalebiReportDetail].[Ilce] AS [Ilce], 
+    [ViewRandevuTalebiReportDetail].[Koy_Mahalle] AS [Koy_Mahalle], 
+    [ViewRandevuTalebiReportDetail].[Location] AS [Location], 
+    [ViewRandevuTalebiReportDetail].[StartDate] AS [StartDate], 
+    [ViewRandevuTalebiReportDetail].[EndDate] AS [EndDate], 
+    [ViewRandevuTalebiReportDetail].[Description] AS [Description], 
+    [ViewRandevuTalebiReportDetail].[isId] AS [isId], 
+    [ViewRandevuTalebiReportDetail].[RandevuId] AS [RandevuId], 
+    [ViewRandevuTalebiReportDetail].[IsiOlusturan] AS [IsiOlusturan], 
+    [ViewRandevuTalebiReportDetail].[RandevuyuVeren] AS [RandevuyuVeren]
+    FROM [dbo].[ViewRandevuTalebiReportDetail] AS [ViewRandevuTalebiReportDetail]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ViewTeslimSenedi" EntityType="Self.ViewTeslimSenedi" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewTeslimSenedi].[isId] AS [isId], 
+    [ViewTeslimSenedi].[Cinsi] AS [Cinsi], 
+    [ViewTeslimSenedi].[Koy_Mahalle] AS [Koy_Mahalle], 
+    [ViewTeslimSenedi].[PaftaNo] AS [PaftaNo], 
+    [ViewTeslimSenedi].[AdaNo] AS [AdaNo], 
+    [ViewTeslimSenedi].[ParselNo] AS [ParselNo], 
+    [ViewTeslimSenedi].[YuzOlcumu] AS [YuzOlcumu], 
+    [ViewTeslimSenedi].[Tanim] AS [Tanim], 
+    [ViewTeslimSenedi].[FenKayitTarihi] AS [FenKayitTarihi], 
+    [ViewTeslimSenedi].[FenKayitTarihiGUN] AS [FenKayitTarihiGUN], 
+    [ViewTeslimSenedi].[FenKayitTarihiAY] AS [FenKayitTarihiAY], 
+    [ViewTeslimSenedi].[FenKayitTarihiYIL] AS [FenKayitTarihiYIL], 
+    [ViewTeslimSenedi].[LisansliBuroSahibi] AS [LisansliBuroSahibi], 
+    [ViewTeslimSenedi].[LisansliBuroSahibiUnvani] AS [LisansliBuroSahibiUnvani], 
+    [ViewTeslimSenedi].[isSahibi] AS [isSahibi], 
+    [ViewTeslimSenedi].[BirimFiyati] AS [BirimFiyati], 
+    [ViewTeslimSenedi].[ToplamFiyat] AS [ToplamFiyat]
+    FROM [dbo].[ViewTeslimSenedi] AS [ViewTeslimSenedi]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ilce_Ili" Association="Self.FK_Ilce_Ili">
+            <End Role="Ili" EntitySet="Ili" />
+            <End Role="Ilce" EntitySet="Ilce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_IsinCinsi" Association="Self.FK_Is_IsinCinsi">
+            <End Role="IsinCinsi" EntitySet="IsinCinsi" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_IsTurleri" Association="Self.FK_Is_IsTurleri">
+            <End Role="IsTurleri" EntitySet="IsTurleri" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_Koy_Mahalle" Association="Self.FK_Is_Koy_Mahalle">
+            <End Role="Koy_Mahalle" EntitySet="Koy_Mahalle" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_Musteri" Association="Self.FK_Is_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IsAsamalari_Isler" Association="Self.FK_IsAsamalari_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsAsamalari" EntitySet="IsAsamalari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IsBilgileri_Is" Association="Self.FK_IsBilgileri_Is">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsBilgileri" EntitySet="IsBilgileri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IsParametreleri_Isler" Association="Self.FK_IsParametreleri_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsParametreleri" EntitySet="IsParametreleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Koy_Mahalle_Ilce" Association="Self.FK_Koy_Mahalle_Ilce">
+            <End Role="Ilce" EntitySet="Ilce" />
+            <End Role="Koy_Mahalle" EntitySet="Koy_Mahalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_MusteriTemsilDurumu" Association="Self.FK_Musteri_MusteriTemsilDurumu">
+            <End Role="MusteriTemsilDurumu" EntitySet="MusteriTemsilDurumu" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Onaylar_OnayTuruOnayVerecekKisi" Association="Self.FK_Onaylar_OnayTuruOnayVerecekKisi">
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+            <End Role="Onaylar" EntitySet="Onaylar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnayTuruOnayVerecekKisi_OnayTuru" Association="Self.FK_OnayTuruOnayVerecekKisi_OnayTuru">
+            <End Role="OnayTuru" EntitySet="OnayTuru" />
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi" Association="Self.FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi">
+            <End Role="OnayVerecekKisi" EntitySet="OnayVerecekKisi" />
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnayVerecekKisi_AspNetUsers" Association="Self.FK_OnayVerecekKisi_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OnayVerecekKisi" EntitySet="OnayVerecekKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevu_Isler" Association="Self.FK_Randevu_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="Randevu" EntitySet="Randevu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcretDokumu_Isler" Association="Self.FK_UcretDokumu_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="UcretDokumu" EntitySet="UcretDokumu" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LIHKAB_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LIHKAB_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Ayarlar" EntityType="LIHKAB_dbModel.Ayarlar" />
+          <EntitySet Name="BankaBilgileri" EntityType="LIHKAB_dbModel.BankaBilgileri" />
+          <EntitySet Name="EmailKayitlari" EntityType="LIHKAB_dbModel.EmailKayitlari" />
+          <EntitySet Name="IsParametreleri" EntityType="LIHKAB_dbModel.IsParametreleri" />
+          <EntitySet Name="IsTurleri" EntityType="LIHKAB_dbModel.IsTurleri" />
+          <EntitySet Name="OnayTuru" EntityType="LIHKAB_dbModel.OnayTuru" />
+          <EntitySet Name="OnayTuruOnayVerecekKisi" EntityType="LIHKAB_dbModel.OnayTuruOnayVerecekKisi" />
+          <EntitySet Name="OnayVerecekKisi" EntityType="LIHKAB_dbModel.OnayVerecekKisi" />
+          <EntitySet Name="UcretAyarlari" EntityType="LIHKAB_dbModel.UcretAyarlari" />
+          <EntitySet Name="UcretDokumu" EntityType="LIHKAB_dbModel.UcretDokumu" />
+          <EntitySet Name="ViewIsinKucukDetayi" EntityType="LIHKAB_dbModel.ViewIsinKucukDetayi" />
+          <EntitySet Name="ViewRandevuTalebiReportDetail" EntityType="LIHKAB_dbModel.ViewRandevuTalebiReportDetail" />
+          <AssociationSet Name="FK_OnayTuruOnayVerecekKisi_OnayTuru" Association="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayTuru">
+            <End Role="OnayTuru" EntitySet="OnayTuru" />
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi" Association="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi">
+            <End Role="OnayVerecekKisi" EntitySet="OnayVerecekKisi" />
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+          </AssociationSet>
+          <EntitySet Name="ViewRandevularIsBilgisiOlmayan" EntityType="LIHKAB_dbModel.ViewRandevularIsBilgisiOlmayan" />
+          <EntitySet Name="Onaylar" EntityType="LIHKAB_dbModel.Onaylar" />
+          <AssociationSet Name="FK_Onaylar_OnayTuruOnayVerecekKisi" Association="LIHKAB_dbModel.FK_Onaylar_OnayTuruOnayVerecekKisi">
+            <End Role="OnayTuruOnayVerecekKisi" EntitySet="OnayTuruOnayVerecekKisi" />
+            <End Role="Onaylar" EntitySet="Onaylar" />
+          </AssociationSet>
+          <EntitySet Name="ViewRandevuOnayDurumu" EntityType="LIHKAB_dbModel.ViewRandevuOnayDurumu" />
+          <EntitySet Name="ViewRandevuGenelOnayDurumu" EntityType="LIHKAB_dbModel.ViewRandevuGenelOnayDurumu" />
+          <EntitySet Name="IsinCinsi" EntityType="LIHKAB_dbModel.IsinCinsi" />
+          <EntitySet Name="AspNetRoles" EntityType="LIHKAB_dbModel.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="LIHKAB_dbModel.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="LIHKAB_dbModel.AspNetUserLogins" />
+          <EntitySet Name="AspNetUserRoles" EntityType="LIHKAB_dbModel.AspNetUserRoles" />
+          <EntitySet Name="AspNetUsers" EntityType="LIHKAB_dbModel.AspNetUsers" />
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="LIHKAB_dbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="LIHKAB_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OnayVerecekKisi_AspNetUsers" Association="LIHKAB_dbModel.FK_OnayVerecekKisi_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="OnayVerecekKisi" EntitySet="OnayVerecekKisi" />
+          </AssociationSet>
+          <EntitySet Name="View_IsAsamalari" EntityType="LIHKAB_dbModel.View_IsAsamalari" />
+          <EntitySet Name="IsAsamalari" EntityType="LIHKAB_dbModel.IsAsamalari" />
+          <EntitySet Name="ViewFenKayitSonrakiNumara" EntityType="LIHKAB_dbModel.ViewFenKayitSonrakiNumara" />
+          <EntitySet Name="Musteri" EntityType="LIHKAB_dbModel.Musteri" />
+          <EntitySet Name="Ilce" EntityType="LIHKAB_dbModel.Ilce" />
+          <EntitySet Name="Ili" EntityType="LIHKAB_dbModel.Ili" />
+          <EntitySet Name="Isler" EntityType="LIHKAB_dbModel.Isler" />
+          <EntitySet Name="Koy_Mahalle" EntityType="LIHKAB_dbModel.Koy_Mahalle" />
+          <EntitySet Name="MusteriTemsilDurumu" EntityType="LIHKAB_dbModel.MusteriTemsilDurumu" />
+          <EntitySet Name="Randevu" EntityType="LIHKAB_dbModel.Randevu" />
+          <EntitySet Name="RandevuIlkHali" EntityType="LIHKAB_dbModel.RandevuIlkHali" />
+          <AssociationSet Name="FK_Ilce_Ili" Association="LIHKAB_dbModel.FK_Ilce_Ili">
+            <End Role="Ili" EntitySet="Ili" />
+            <End Role="Ilce" EntitySet="Ilce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Koy_Mahalle_Ilce" Association="LIHKAB_dbModel.FK_Koy_Mahalle_Ilce">
+            <End Role="Ilce" EntitySet="Ilce" />
+            <End Role="Koy_Mahalle" EntitySet="Koy_Mahalle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IsAsamalari_Isler" Association="LIHKAB_dbModel.FK_IsAsamalari_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsAsamalari" EntitySet="IsAsamalari" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_IsinCinsi" Association="LIHKAB_dbModel.FK_Is_IsinCinsi">
+            <End Role="IsinCinsi" EntitySet="IsinCinsi" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_IsTurleri" Association="LIHKAB_dbModel.FK_Is_IsTurleri">
+            <End Role="IsTurleri" EntitySet="IsTurleri" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_Koy_Mahalle" Association="LIHKAB_dbModel.FK_Is_Koy_Mahalle">
+            <End Role="Koy_Mahalle" EntitySet="Koy_Mahalle" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Is_Musteri" Association="LIHKAB_dbModel.FK_Is_Musteri">
+            <End Role="Musteri" EntitySet="Musteri" />
+            <End Role="Isler" EntitySet="Isler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IsParametreleri_Isler" Association="LIHKAB_dbModel.FK_IsParametreleri_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsParametreleri" EntitySet="IsParametreleri" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Randevu_Isler" Association="LIHKAB_dbModel.FK_Randevu_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="Randevu" EntitySet="Randevu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcretDokumu_Isler" Association="LIHKAB_dbModel.FK_UcretDokumu_Isler">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="UcretDokumu" EntitySet="UcretDokumu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Musteri_MusteriTemsilDurumu" Association="LIHKAB_dbModel.FK_Musteri_MusteriTemsilDurumu">
+            <End Role="MusteriTemsilDurumu" EntitySet="MusteriTemsilDurumu" />
+            <End Role="Musteri" EntitySet="Musteri" />
+          </AssociationSet>
+          <EntitySet Name="View_RaporSozlesme" EntityType="LIHKAB_dbModel.View_RaporSozlesme" />
+          <EntitySet Name="IsBilgileri" EntityType="LIHKAB_dbModel.IsBilgileri" />
+          <AssociationSet Name="FK_IsBilgileri_Is" Association="LIHKAB_dbModel.FK_IsBilgileri_Is">
+            <End Role="Isler" EntitySet="Isler" />
+            <End Role="IsBilgileri" EntitySet="IsBilgileri" />
+          </AssociationSet>
+          <EntitySet Name="LisansliBuroBilgileri" EntityType="LIHKAB_dbModel.LisansliBuroBilgileri" />
+          <EntitySet Name="ViewTeslimSenedi" EntityType="LIHKAB_dbModel.ViewTeslimSenedi" />
+          </EntityContainer>
+        <EntityType Name="Ayarlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="BankaBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Banka" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Iban" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="EmailKayitlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kime" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NeZaman" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="IsParametreleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" Nullable="false" />
+          <Property Name="YuzOlcumu" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="AplikasyonKrokisiSayisi" Type="Int32" />
+          <Property Name="ParselSayisi" Type="Int32" />
+          <Property Name="NoktaSayisi" Type="Int32" />
+          <Property Name="ParselAlani" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="BinaTabanAlani" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="InsaatAlani" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="BagimsizBolumSayisi" Type="Int32" />
+          <Property Name="BinaSayisi" Type="Int32" />
+          <Property Name="PlanOrnegi" Type="Int32" />
+          <Property Name="KatSayisi" Type="Int32" />
+          <Property Name="B_Bolum" Type="Int32" />
+          <Property Name="OdaKatsayi" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="AraziyeGidilecekmi" Type="Boolean" />
+          <Property Name="AyniKisiyeAit" Type="Boolean" />
+          <Property Name="OdaBirimFiyatlariniKullan" Type="Boolean" />
+          <Property Name="Yuzde50CarpanUygula" Type="Boolean" />
+          <Property Name="YolUcreti" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_IsParametreleri_Isler" FromRole="IsParametreleri" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="IsTurleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_Is_IsTurleri" FromRole="IsTurleri" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="OnayTuru">
+          <Key>
+            <PropertyRef Name="OnayKodu" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OnayKodu" Type="Int32" Nullable="false" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OnayTuruOnayVerecekKisi" Relationship="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayTuru" FromRole="OnayTuru" ToRole="OnayTuruOnayVerecekKisi" />
+        </EntityType>
+        <EntityType Name="OnayTuruOnayVerecekKisi">
+          <Key>
+            <PropertyRef Name="OnayKodu" />
+            <PropertyRef Name="OnayVerecekUserId" />
+          </Key>
+          <Property Name="OnayKodu" Type="Int32" Nullable="false" />
+          <Property Name="OnayVerecekUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OnayTuru" Relationship="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayTuru" FromRole="OnayTuruOnayVerecekKisi" ToRole="OnayTuru" />
+          <NavigationProperty Name="OnayVerecekKisi" Relationship="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi" FromRole="OnayTuruOnayVerecekKisi" ToRole="OnayVerecekKisi" />
+          <NavigationProperty Name="Onaylar" Relationship="LIHKAB_dbModel.FK_Onaylar_OnayTuruOnayVerecekKisi" FromRole="OnayTuruOnayVerecekKisi" ToRole="Onaylar" />
+        </EntityType>
+        <EntityType Name="OnayVerecekKisi">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OnayTuruOnayVerecekKisi" Relationship="LIHKAB_dbModel.FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi" FromRole="OnayVerecekKisi" ToRole="OnayTuruOnayVerecekKisi" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LIHKAB_dbModel.FK_OnayVerecekKisi_AspNetUsers" FromRole="OnayVerecekKisi" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="UcretAyarlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsDetayi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="UcretKodu" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Kullan" Type="Boolean" Nullable="false" />
+          <Property Name="Parametre" Type="Decimal" Nullable="false" Precision="18" Scale="6" />
+        </EntityType>
+        <EntityType Name="UcretDokumu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" />
+          <Property Name="YolUcreti" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="DenetimUcreti" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="DamgaVergisi" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="BelgeUcreti" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="KontrolUcreti" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Toplam" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="ToplamBrutUcret" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="Stopaj20percent" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="KesintilerToplami" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="GenelToplam" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="KDV18percent" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TevkifEdilenKDV" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TahsilEdilenKDV" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="NetAlinan" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="AlinacakGenelToplam" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_UcretDokumu_Isler" FromRole="UcretDokumu" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="ViewIsinKucukDetayi">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="id" />
+            <PropertyRef Name="IsinCinsi" />
+            <PropertyRef Name="AdiSoyadi" />
+          </Key>
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="IsinCinsi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriTemsilDurumu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AlinacakGenelToplam" Type="Decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="ViewRandevuTalebiReportDetail">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="Tanim" />
+            <PropertyRef Name="AdiSoyadi" />
+            <PropertyRef Name="Il" />
+            <PropertyRef Name="Ilce" />
+            <PropertyRef Name="Koy_Mahalle" />
+            <PropertyRef Name="isId" />
+            <PropertyRef Name="RandevuId" />
+          </Key>
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Il" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilce" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Koy_Mahalle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="isId" Type="Int32" Nullable="false" />
+          <Property Name="RandevuId" Type="Int32" Nullable="false" />
+          <Property Name="IsiOlusturan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RandevuyuVeren" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_OnayTuruOnayVerecekKisi_OnayTuru">
+          <End Type="LIHKAB_dbModel.OnayTuru" Role="OnayTuru" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.OnayTuruOnayVerecekKisi" Role="OnayTuruOnayVerecekKisi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayTuru">
+              <PropertyRef Name="OnayKodu" />
+            </Principal>
+            <Dependent Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayKodu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnayTuruOnayVerecekKisi_OnayVerecekKisi">
+          <End Type="LIHKAB_dbModel.OnayVerecekKisi" Role="OnayVerecekKisi" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.OnayTuruOnayVerecekKisi" Role="OnayTuruOnayVerecekKisi" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayVerecekKisi">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayVerecekUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ViewRandevularIsBilgisiOlmayan">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Onaylar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OnayKodu" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OnaylananSatirId" Type="Int32" Nullable="false" />
+          <Property Name="OnayZamani" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="OnayTuruOnayVerecekKisi" Relationship="LIHKAB_dbModel.FK_Onaylar_OnayTuruOnayVerecekKisi" FromRole="Onaylar" ToRole="OnayTuruOnayVerecekKisi" />
+        </EntityType>
+        <Association Name="FK_Onaylar_OnayTuruOnayVerecekKisi">
+          <End Type="LIHKAB_dbModel.OnayTuruOnayVerecekKisi" Role="OnayTuruOnayVerecekKisi" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Onaylar" Role="Onaylar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnayTuruOnayVerecekKisi">
+              <PropertyRef Name="OnayKodu" />
+              <PropertyRef Name="OnayVerecekUserId" />
+            </Principal>
+            <Dependent Role="Onaylar">
+              <PropertyRef Name="OnayKodu" />
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ViewRandevuOnayDurumu">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+          </Key>
+          <Property Name="UniqueId" Type="Int64" Nullable="false" />
+          <Property Name="RandevuId" Type="Int32" Nullable="false" />
+          <Property Name="OnayId" Type="Int32" />
+          <Property Name="OnayKodu" Type="Int32" Nullable="false" />
+          <Property Name="OnayVerecekUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OnayZamani" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ViewRandevuGenelOnayDurumu">
+          <Key>
+            <PropertyRef Name="RandevuId" />
+          </Key>
+          <Property Name="RandevuId" Type="Int32" Nullable="false" />
+          <Property Name="GerekenOnaySayisi" Type="Int32" />
+          <Property Name="OnaySayisi" Type="Int32" Nullable="false" />
+          <Property Name="Onaylanmis" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsinCinsi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitNoSifirMi" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_Is_IsinCinsi" FromRole="IsinCinsi" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserRoles" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetRoles" ToRole="AspNetUserRoles" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RoleId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Note" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="AspNetRoles" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" FromRole="AspNetUserRoles" ToRole="AspNetRoles" />
+          <NavigationProperty Name="AspNetUsers" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUserRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdiSoyadi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetUserRoles" Relationship="LIHKAB_dbModel.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserRoles" />
+          <NavigationProperty Name="OnayVerecekKisi" Relationship="LIHKAB_dbModel.FK_OnayVerecekKisi_AspNetUsers" FromRole="AspNetUsers" ToRole="OnayVerecekKisi" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Type="LIHKAB_dbModel.AspNetRoles" Role="AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.AspNetUserRoles" Role="AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="LIHKAB_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="LIHKAB_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Type="LIHKAB_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.AspNetUserRoles" Role="AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OnayVerecekKisi_AspNetUsers">
+          <End Type="LIHKAB_dbModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.OnayVerecekKisi" Role="OnayVerecekKisi" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OnayVerecekKisi">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="View_IsAsamalari">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+          </Key>
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="IsId" Type="Int32" Nullable="false" />
+          <Property Name="OnayaGidisZamani" Type="DateTime" Precision="3" />
+          <Property Name="Onaylanmis" Type="Boolean" Nullable="false" />
+          <Property Name="OnayZamani" Type="DateTime" Precision="3" />
+          <Property Name="Randevu" Type="Boolean" />
+          <Property Name="RandevuWhen" Type="DateTime" Precision="3" />
+          <Property Name="Fatura" Type="Boolean" Nullable="false" />
+          <Property Name="FaturaWhen" Type="DateTime" Precision="3" />
+          <Property Name="Olcum" Type="Boolean" Nullable="false" />
+          <Property Name="OlcumWhen" Type="DateTime" Precision="3" />
+          <Property Name="Kontrol" Type="Boolean" Nullable="false" />
+          <Property Name="KontrolWhen" Type="DateTime" Precision="3" />
+          <Property Name="BeldEvrGeldi" Type="Boolean" Nullable="false" />
+          <Property Name="BeldEvrGeldiWhen" Type="DateTime" Precision="3" />
+          <Property Name="BeldEvrGitti" Type="Boolean" Nullable="false" />
+          <Property Name="BeldEvrGittiWhen" Type="DateTime" Precision="3" />
+          <Property Name="KadEvrGeldi" Type="Boolean" Nullable="false" />
+          <Property Name="KadEvrGeldiWhen" Type="DateTime" Precision="3" />
+          <Property Name="KadEvrGitti" Type="Boolean" Nullable="false" />
+          <Property Name="KadEvrGittiWhen" Type="DateTime" Precision="3" />
+          <Property Name="ProjeYapildi" Type="Boolean" Nullable="false" />
+          <Property Name="ProjeYapildiWhen" Type="DateTime" Precision="3" />
+          <Property Name="OdemeAlindi" Type="Boolean" Nullable="false" />
+          <Property Name="OdemeAlindiWhen" Type="DateTime" Precision="3" />
+          <Property Name="IsKapandi" Type="Boolean" Nullable="false" />
+          <Property Name="IsKapandiWhen" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="MusteriyiBilgilendir" Type="Boolean" Nullable="false" />
+          <Property Name="MusteriyiBilgilendirWhen" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="IsAsamalari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsId" Type="Int32" Nullable="false" />
+          <Property Name="OnayaGidisZamani" Type="DateTime" Precision="3" />
+          <Property Name="Onaylanmis" Type="Boolean" Nullable="false" />
+          <Property Name="OnayZamani" Type="DateTime" Precision="3" />
+          <Property Name="Fatura" Type="Boolean" Nullable="false" />
+          <Property Name="FaturaWhen" Type="DateTime" Precision="3" />
+          <Property Name="Olcum" Type="Boolean" Nullable="false" />
+          <Property Name="OlcumWhen" Type="DateTime" Precision="3" />
+          <Property Name="Kontrol" Type="Boolean" Nullable="false" />
+          <Property Name="KontrolWhen" Type="DateTime" Precision="3" />
+          <Property Name="BeldEvrGeldi" Type="Boolean" Nullable="false" />
+          <Property Name="BeldEvrGeldiWhen" Type="DateTime" Precision="3" />
+          <Property Name="BeldEvrGitti" Type="Boolean" Nullable="false" />
+          <Property Name="BeldEvrGittiWhen" Type="DateTime" Precision="3" />
+          <Property Name="KadEvrGeldi" Type="Boolean" Nullable="false" />
+          <Property Name="KadEvrGeldiWhen" Type="DateTime" Precision="3" />
+          <Property Name="KadEvrGitti" Type="Boolean" Nullable="false" />
+          <Property Name="KadEvrGittiWhen" Type="DateTime" Precision="3" />
+          <Property Name="ProjeYapildi" Type="Boolean" Nullable="false" />
+          <Property Name="ProjeYapildiWhen" Type="DateTime" Precision="3" />
+          <Property Name="OdemeAlindi" Type="Boolean" Nullable="false" />
+          <Property Name="OdemeAlindiWhen" Type="DateTime" Precision="3" />
+          <Property Name="IsKapandi" Type="Boolean" Nullable="false" />
+          <Property Name="IsKapandiWhen" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="MusteriyiBilgilendir" Type="Boolean" Nullable="false" />
+          <Property Name="MusteriyiBilgilendirWhen" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_IsAsamalari_Isler" FromRole="IsAsamalari" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="ViewFenKayitSonrakiNumara">
+          <Key>
+            <PropertyRef Name="UniqueId" />
+            <PropertyRef Name="Yil" />
+            <PropertyRef Name="IlceId" />
+          </Key>
+          <Property Name="UniqueId" Type="Guid" Nullable="false" />
+          <Property Name="Yil" Type="Int32" Nullable="false" />
+          <Property Name="IlceId" Type="Int32" Nullable="false" />
+          <Property Name="VerilecekFenKayitNo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Musteri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdiSoyadi" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TCkimlik_VergiNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TemsilDurumu" Type="Int32" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_Is_Musteri" FromRole="Musteri" ToRole="Isler" />
+          <NavigationProperty Name="MusteriTemsilDurumu" Relationship="LIHKAB_dbModel.FK_Musteri_MusteriTemsilDurumu" FromRole="Musteri" ToRole="MusteriTemsilDurumu" />
+        </EntityType>
+        <EntityType Name="Ilce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Il" Type="Int32" Nullable="false" />
+          <Property Name="Ilce1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ili" Relationship="LIHKAB_dbModel.FK_Ilce_Ili" FromRole="Ilce" ToRole="Ili" />
+          <NavigationProperty Name="Koy_Mahalle" Relationship="LIHKAB_dbModel.FK_Koy_Mahalle_Ilce" FromRole="Ilce" ToRole="Koy_Mahalle" />
+        </EntityType>
+        <EntityType Name="Ili">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Il" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IlKatsayisi" Type="Decimal" Nullable="false" Precision="15" Scale="2" />
+          <NavigationProperty Name="Ilce" Relationship="LIHKAB_dbModel.FK_Ilce_Ili" FromRole="Ili" ToRole="Ilce" />
+        </EntityType>
+        <EntityType Name="Isler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsinCinsi" Type="Int32" Nullable="false" />
+          <Property Name="Koyu_Mahallesi" Type="Int32" Nullable="false" />
+          <Property Name="IsinTuru" Type="Int32" />
+          <Property Name="KadastroyaAsliGibiVerilecek" Type="Boolean" />
+          <Property Name="Stopaj" Type="Boolean" />
+          <Property Name="Tevkifatli" Type="Boolean" />
+          <Property Name="KentselDonusum" Type="Boolean" />
+          <Property Name="YolKilometre" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="YolUcretiniElleGir" Type="Boolean" />
+          <Property Name="Musteri" Type="Int32" Nullable="false" />
+          <Property Name="MusteriTemsilDurumu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IsAsamalari" Relationship="LIHKAB_dbModel.FK_IsAsamalari_Isler" FromRole="Isler" ToRole="IsAsamalari" />
+          <NavigationProperty Name="IsinCinsi1" Relationship="LIHKAB_dbModel.FK_Is_IsinCinsi" FromRole="Isler" ToRole="IsinCinsi" />
+          <NavigationProperty Name="IsTurleri" Relationship="LIHKAB_dbModel.FK_Is_IsTurleri" FromRole="Isler" ToRole="IsTurleri" />
+          <NavigationProperty Name="Koy_Mahalle" Relationship="LIHKAB_dbModel.FK_Is_Koy_Mahalle" FromRole="Isler" ToRole="Koy_Mahalle" />
+          <NavigationProperty Name="Musteri1" Relationship="LIHKAB_dbModel.FK_Is_Musteri" FromRole="Isler" ToRole="Musteri" />
+          <NavigationProperty Name="IsParametreleri" Relationship="LIHKAB_dbModel.FK_IsParametreleri_Isler" FromRole="Isler" ToRole="IsParametreleri" />
+          <NavigationProperty Name="Randevu" Relationship="LIHKAB_dbModel.FK_Randevu_Isler" FromRole="Isler" ToRole="Randevu" />
+          <NavigationProperty Name="UcretDokumu" Relationship="LIHKAB_dbModel.FK_UcretDokumu_Isler" FromRole="Isler" ToRole="UcretDokumu" />
+          <NavigationProperty Name="IsBilgileri" Relationship="LIHKAB_dbModel.FK_IsBilgileri_Is" FromRole="Isler" ToRole="IsBilgileri" />
+        </EntityType>
+        <EntityType Name="Koy_Mahalle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ilce" Type="Int32" Nullable="false" />
+          <Property Name="Koy_Mahalle1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YolKilometre" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Ilce1" Relationship="LIHKAB_dbModel.FK_Koy_Mahalle_Ilce" FromRole="Koy_Mahalle" ToRole="Ilce" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_Is_Koy_Mahalle" FromRole="Koy_Mahalle" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="MusteriTemsilDurumu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StopajdaGoster" Type="Boolean" Nullable="false" />
+          <Property Name="IsBilgilerindeZorunluTip" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Musteri" Relationship="LIHKAB_dbModel.FK_Musteri_MusteriTemsilDurumu" FromRole="MusteriTemsilDurumu" ToRole="Musteri" />
+        </EntityType>
+        <EntityType Name="Randevu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AllDay" Type="Boolean" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Label" Type="Int32" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_Randevu_Isler" FromRole="Randevu" ToRole="Isler" />
+        </EntityType>
+        <EntityType Name="RandevuIlkHali">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AllDay" Type="Boolean" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Label" Type="Int32" />
+          <Property Name="VerilisZamani" Type="DateTime" Precision="3" />
+          <Property Name="AdiSoyadi" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Ilce_Ili">
+          <End Type="LIHKAB_dbModel.Ili" Role="Ili" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Ilce" Role="Ilce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ili">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Ilce">
+              <PropertyRef Name="Il" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Koy_Mahalle_Ilce">
+          <End Type="LIHKAB_dbModel.Ilce" Role="Ilce" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Koy_Mahalle" Role="Koy_Mahalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ilce">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Koy_Mahalle">
+              <PropertyRef Name="Ilce" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IsAsamalari_Isler">
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.IsAsamalari" Role="IsAsamalari" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsAsamalari">
+              <PropertyRef Name="IsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_IsinCinsi">
+          <End Type="LIHKAB_dbModel.IsinCinsi" Role="IsinCinsi" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsinCinsi">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="IsinCinsi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_IsTurleri">
+          <End Type="LIHKAB_dbModel.IsTurleri" Role="IsTurleri" Multiplicity="0..1" />
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IsTurleri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="IsinTuru" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_Koy_Mahalle">
+          <End Type="LIHKAB_dbModel.Koy_Mahalle" Role="Koy_Mahalle" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Koy_Mahalle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="Koyu_Mahallesi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Is_Musteri">
+          <End Type="LIHKAB_dbModel.Musteri" Role="Musteri" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Musteri">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Isler">
+              <PropertyRef Name="Musteri" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IsParametreleri_Isler">
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.IsParametreleri" Role="IsParametreleri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsParametreleri">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Randevu_Isler">
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.Randevu" Role="Randevu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Randevu">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UcretDokumu_Isler">
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.UcretDokumu" Role="UcretDokumu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="UcretDokumu">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Musteri_MusteriTemsilDurumu">
+          <End Type="LIHKAB_dbModel.MusteriTemsilDurumu" Role="MusteriTemsilDurumu" Multiplicity="1" />
+          <End Type="LIHKAB_dbModel.Musteri" Role="Musteri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MusteriTemsilDurumu">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Musteri">
+              <PropertyRef Name="TemsilDurumu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="View_RaporSozlesme">
+          <Key>
+            <PropertyRef Name="IsId" />
+          </Key>
+          <Property Name="IsId" Type="Int32" Nullable="false" />
+          <Property Name="IlinAdi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ilce" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Koy_Mahalle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsSahibi" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsSahibiVeUnvani" Type="String" MaxLength="301" FixedLength="false" Unicode="true" />
+          <Property Name="MusteriTemsilDurumuIsler" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsinCinsiTanim" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="RandevuZamani" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Toplam" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="KDV" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="GenelToplam" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="MalikiIBAdiSoyadi" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IsSahibiTCkimlik_VergiNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSahibiTelefon1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsSahibiAdress" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LisansSahibi_AdiSoyadi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBuroNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBelgeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OdaSicilNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LisansSahibiIli" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdaParselNo" Type="String" Nullable="false" MaxLength="201" FixedLength="false" Unicode="true" />
+          <Property Name="PaftaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiNo" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihi" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiGUN" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiAY" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiYIL" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Yuzolcumu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="IsinCinsiId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IsBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" Nullable="false" />
+          <Property Name="Yili" Type="Int32" Nullable="false" />
+          <Property Name="FenKayitNo" Type="Int32" Nullable="false" />
+          <Property Name="FenKayitTarihi" Type="DateTime" Precision="0" />
+          <Property Name="PaftaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParselNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Takipci" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Maliki" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Cinsi" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Ilgilenen" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FaturaNo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="WhenUpdated" Type="DateTime" Precision="3" />
+          <Property Name="WhoCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhoUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WhenCreated" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Isler" Relationship="LIHKAB_dbModel.FK_IsBilgileri_Is" FromRole="IsBilgileri" ToRole="Isler" />
+        </EntityType>
+        <Association Name="FK_IsBilgileri_Is">
+          <End Type="LIHKAB_dbModel.Isler" Role="Isler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="LIHKAB_dbModel.IsBilgileri" Role="IsBilgileri" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Isler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="IsBilgileri">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LisansliBuroBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KimlikNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdiSoyadi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Unvani" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBuroNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBelgeNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OdaSicilNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ili" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Adresi" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Faks" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eposta" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Websayfasi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ilcesi" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ViewTeslimSenedi">
+          <Key>
+            <PropertyRef Name="isId" />
+          </Key>
+          <Property Name="isId" Type="Int32" Nullable="false" />
+          <Property Name="Cinsi" Type="String" Nullable="false" MaxLength="18" FixedLength="false" Unicode="true" />
+          <Property Name="Koy_Mahalle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PaftaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AdaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ParselNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="YuzOlcumu" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Tanim" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihi" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiGUN" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiAY" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="FenKayitTarihiYIL" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBuroSahibi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LisansliBuroSahibiUnvani" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="isSahibi" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="BirimFiyati" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ToplamFiyat" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LIHKAB_dbModelStoreContainer" CdmEntityContainer="LIHKAB_dbEntities">
+          <EntitySetMapping Name="Ayarlar">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Ayarlar">
+              <MappingFragment StoreEntitySet="Ayarlar">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BankaBilgileri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.BankaBilgileri">
+              <MappingFragment StoreEntitySet="BankaBilgileri">
+                <ScalarProperty Name="Iban" ColumnName="Iban" />
+                <ScalarProperty Name="Banka" ColumnName="Banka" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailKayitlari">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.EmailKayitlari">
+              <MappingFragment StoreEntitySet="EmailKayitlari">
+                <ScalarProperty Name="NeZaman" ColumnName="NeZaman" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Kime" ColumnName="Kime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsParametreleri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.IsParametreleri">
+              <MappingFragment StoreEntitySet="IsParametreleri">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="YolUcreti" ColumnName="YolUcreti" />
+                <ScalarProperty Name="Yuzde50CarpanUygula" ColumnName="Yuzde50CarpanUygula" />
+                <ScalarProperty Name="OdaBirimFiyatlariniKullan" ColumnName="OdaBirimFiyatlariniKullan" />
+                <ScalarProperty Name="AyniKisiyeAit" ColumnName="AyniKisiyeAit" />
+                <ScalarProperty Name="AraziyeGidilecekmi" ColumnName="AraziyeGidilecekmi" />
+                <ScalarProperty Name="OdaKatsayi" ColumnName="OdaKatsayi" />
+                <ScalarProperty Name="B_Bolum" ColumnName="B_Bolum" />
+                <ScalarProperty Name="KatSayisi" ColumnName="KatSayisi" />
+                <ScalarProperty Name="PlanOrnegi" ColumnName="PlanOrnegi" />
+                <ScalarProperty Name="BinaSayisi" ColumnName="BinaSayisi" />
+                <ScalarProperty Name="BagimsizBolumSayisi" ColumnName="BagimsizBolumSayisi" />
+                <ScalarProperty Name="InsaatAlani" ColumnName="InsaatAlani" />
+                <ScalarProperty Name="BinaTabanAlani" ColumnName="BinaTabanAlani" />
+                <ScalarProperty Name="ParselAlani" ColumnName="ParselAlani" />
+                <ScalarProperty Name="NoktaSayisi" ColumnName="NoktaSayisi" />
+                <ScalarProperty Name="ParselSayisi" ColumnName="ParselSayisi" />
+                <ScalarProperty Name="AplikasyonKrokisiSayisi" ColumnName="AplikasyonKrokisiSayisi" />
+                <ScalarProperty Name="YuzOlcumu" ColumnName="YuzOlcumu" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsTurleri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.IsTurleri">
+              <MappingFragment StoreEntitySet="IsTurleri">
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnayTuru">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.OnayTuru">
+              <MappingFragment StoreEntitySet="OnayTuru">
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="OnayKodu" ColumnName="OnayKodu" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnayTuruOnayVerecekKisi">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.OnayTuruOnayVerecekKisi">
+              <MappingFragment StoreEntitySet="OnayTuruOnayVerecekKisi">
+                <ScalarProperty Name="OnayVerecekUserId" ColumnName="OnayVerecekUserId" />
+                <ScalarProperty Name="OnayKodu" ColumnName="OnayKodu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OnayVerecekKisi">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.OnayVerecekKisi">
+              <MappingFragment StoreEntitySet="OnayVerecekKisi">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcretAyarlari">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.UcretAyarlari">
+              <MappingFragment StoreEntitySet="UcretAyarlari">
+                <ScalarProperty Name="Parametre" ColumnName="Parametre" />
+                <ScalarProperty Name="Kullan" ColumnName="Kullan" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="UcretKodu" ColumnName="UcretKodu" />
+                <ScalarProperty Name="IsDetayi" ColumnName="IsDetayi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UcretDokumu">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.UcretDokumu">
+              <MappingFragment StoreEntitySet="UcretDokumu">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="AlinacakGenelToplam" ColumnName="AlinacakGenelToplam" />
+                <ScalarProperty Name="NetAlinan" ColumnName="NetAlinan" />
+                <ScalarProperty Name="TahsilEdilenKDV" ColumnName="TahsilEdilenKDV" />
+                <ScalarProperty Name="TevkifEdilenKDV" ColumnName="TevkifEdilenKDV" />
+                <ScalarProperty Name="KDV18percent" ColumnName="KDV18percent" />
+                <ScalarProperty Name="GenelToplam" ColumnName="GenelToplam" />
+                <ScalarProperty Name="KesintilerToplami" ColumnName="KesintilerToplami" />
+                <ScalarProperty Name="Stopaj20percent" ColumnName="Stopaj20percent" />
+                <ScalarProperty Name="ToplamBrutUcret" ColumnName="ToplamBrutUcret" />
+                <ScalarProperty Name="Toplam" ColumnName="Toplam" />
+                <ScalarProperty Name="KontrolUcreti" ColumnName="KontrolUcreti" />
+                <ScalarProperty Name="BelgeUcreti" ColumnName="BelgeUcreti" />
+                <ScalarProperty Name="DamgaVergisi" ColumnName="DamgaVergisi" />
+                <ScalarProperty Name="DenetimUcreti" ColumnName="DenetimUcreti" />
+                <ScalarProperty Name="YolUcreti" ColumnName="YolUcreti" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewIsinKucukDetayi">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewIsinKucukDetayi">
+              <MappingFragment StoreEntitySet="ViewIsinKucukDetayi">
+                <ScalarProperty Name="AlinacakGenelToplam" ColumnName="AlinacakGenelToplam" />
+                <ScalarProperty Name="MusteriTemsilDurumu" ColumnName="MusteriTemsilDurumu" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="IsinCinsi" ColumnName="IsinCinsi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRandevuTalebiReportDetail">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewRandevuTalebiReportDetail">
+              <MappingFragment StoreEntitySet="ViewRandevuTalebiReportDetail">
+                <ScalarProperty Name="RandevuyuVeren" ColumnName="RandevuyuVeren" />
+                <ScalarProperty Name="IsiOlusturan" ColumnName="IsiOlusturan" />
+                <ScalarProperty Name="RandevuId" ColumnName="RandevuId" />
+                <ScalarProperty Name="isId" ColumnName="isId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Koy_Mahalle" ColumnName="Koy_Mahalle" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRandevularIsBilgisiOlmayan">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewRandevularIsBilgisiOlmayan">
+              <MappingFragment StoreEntitySet="ViewRandevularIsBilgisiOlmayan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Onaylar">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Onaylar">
+              <MappingFragment StoreEntitySet="Onaylar">
+                <ScalarProperty Name="OnayZamani" ColumnName="OnayZamani" />
+                <ScalarProperty Name="OnaylananSatirId" ColumnName="OnaylananSatirId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="OnayKodu" ColumnName="OnayKodu" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRandevuOnayDurumu">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewRandevuOnayDurumu">
+              <MappingFragment StoreEntitySet="ViewRandevuOnayDurumu">
+                <ScalarProperty Name="OnayZamani" ColumnName="OnayZamani" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="OnayVerecekUserId" ColumnName="OnayVerecekUserId" />
+                <ScalarProperty Name="OnayKodu" ColumnName="OnayKodu" />
+                <ScalarProperty Name="OnayId" ColumnName="OnayId" />
+                <ScalarProperty Name="RandevuId" ColumnName="RandevuId" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewRandevuGenelOnayDurumu">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewRandevuGenelOnayDurumu">
+              <MappingFragment StoreEntitySet="ViewRandevuGenelOnayDurumu">
+                <ScalarProperty Name="Onaylanmis" ColumnName="Onaylanmis" />
+                <ScalarProperty Name="OnaySayisi" ColumnName="OnaySayisi" />
+                <ScalarProperty Name="GerekenOnaySayisi" ColumnName="GerekenOnaySayisi" />
+                <ScalarProperty Name="RandevuId" ColumnName="RandevuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsinCinsi">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.IsinCinsi">
+              <MappingFragment StoreEntitySet="IsinCinsi">
+                <ScalarProperty Name="FenKayitNoSifirMi" ColumnName="FenKayitNoSifirMi" />
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserRoles">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.AspNetUserRoles">
+              <MappingFragment StoreEntitySet="AspNetUserRoles">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_IsAsamalari">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.View_IsAsamalari">
+              <MappingFragment StoreEntitySet="View_IsAsamalari">
+                <ScalarProperty Name="MusteriyiBilgilendirWhen" ColumnName="MusteriyiBilgilendirWhen" />
+                <ScalarProperty Name="MusteriyiBilgilendir" ColumnName="MusteriyiBilgilendir" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="IsKapandiWhen" ColumnName="IsKapandiWhen" />
+                <ScalarProperty Name="IsKapandi" ColumnName="IsKapandi" />
+                <ScalarProperty Name="OdemeAlindiWhen" ColumnName="OdemeAlindiWhen" />
+                <ScalarProperty Name="OdemeAlindi" ColumnName="OdemeAlindi" />
+                <ScalarProperty Name="ProjeYapildiWhen" ColumnName="ProjeYapildiWhen" />
+                <ScalarProperty Name="ProjeYapildi" ColumnName="ProjeYapildi" />
+                <ScalarProperty Name="KadEvrGittiWhen" ColumnName="KadEvrGittiWhen" />
+                <ScalarProperty Name="KadEvrGitti" ColumnName="KadEvrGitti" />
+                <ScalarProperty Name="KadEvrGeldiWhen" ColumnName="KadEvrGeldiWhen" />
+                <ScalarProperty Name="KadEvrGeldi" ColumnName="KadEvrGeldi" />
+                <ScalarProperty Name="BeldEvrGittiWhen" ColumnName="BeldEvrGittiWhen" />
+                <ScalarProperty Name="BeldEvrGitti" ColumnName="BeldEvrGitti" />
+                <ScalarProperty Name="BeldEvrGeldiWhen" ColumnName="BeldEvrGeldiWhen" />
+                <ScalarProperty Name="BeldEvrGeldi" ColumnName="BeldEvrGeldi" />
+                <ScalarProperty Name="KontrolWhen" ColumnName="KontrolWhen" />
+                <ScalarProperty Name="Kontrol" ColumnName="Kontrol" />
+                <ScalarProperty Name="OlcumWhen" ColumnName="OlcumWhen" />
+                <ScalarProperty Name="Olcum" ColumnName="Olcum" />
+                <ScalarProperty Name="FaturaWhen" ColumnName="FaturaWhen" />
+                <ScalarProperty Name="Fatura" ColumnName="Fatura" />
+                <ScalarProperty Name="RandevuWhen" ColumnName="RandevuWhen" />
+                <ScalarProperty Name="Randevu" ColumnName="Randevu" />
+                <ScalarProperty Name="OnayZamani" ColumnName="OnayZamani" />
+                <ScalarProperty Name="Onaylanmis" ColumnName="Onaylanmis" />
+                <ScalarProperty Name="OnayaGidisZamani" ColumnName="OnayaGidisZamani" />
+                <ScalarProperty Name="IsId" ColumnName="IsId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsAsamalari">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.IsAsamalari">
+              <MappingFragment StoreEntitySet="IsAsamalari">
+                <ScalarProperty Name="MusteriyiBilgilendirWhen" ColumnName="MusteriyiBilgilendirWhen" />
+                <ScalarProperty Name="MusteriyiBilgilendir" ColumnName="MusteriyiBilgilendir" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="IsKapandiWhen" ColumnName="IsKapandiWhen" />
+                <ScalarProperty Name="IsKapandi" ColumnName="IsKapandi" />
+                <ScalarProperty Name="OdemeAlindiWhen" ColumnName="OdemeAlindiWhen" />
+                <ScalarProperty Name="OdemeAlindi" ColumnName="OdemeAlindi" />
+                <ScalarProperty Name="ProjeYapildiWhen" ColumnName="ProjeYapildiWhen" />
+                <ScalarProperty Name="ProjeYapildi" ColumnName="ProjeYapildi" />
+                <ScalarProperty Name="KadEvrGittiWhen" ColumnName="KadEvrGittiWhen" />
+                <ScalarProperty Name="KadEvrGitti" ColumnName="KadEvrGitti" />
+                <ScalarProperty Name="KadEvrGeldiWhen" ColumnName="KadEvrGeldiWhen" />
+                <ScalarProperty Name="KadEvrGeldi" ColumnName="KadEvrGeldi" />
+                <ScalarProperty Name="BeldEvrGittiWhen" ColumnName="BeldEvrGittiWhen" />
+                <ScalarProperty Name="BeldEvrGitti" ColumnName="BeldEvrGitti" />
+                <ScalarProperty Name="BeldEvrGeldiWhen" ColumnName="BeldEvrGeldiWhen" />
+                <ScalarProperty Name="BeldEvrGeldi" ColumnName="BeldEvrGeldi" />
+                <ScalarProperty Name="KontrolWhen" ColumnName="KontrolWhen" />
+                <ScalarProperty Name="Kontrol" ColumnName="Kontrol" />
+                <ScalarProperty Name="OlcumWhen" ColumnName="OlcumWhen" />
+                <ScalarProperty Name="Olcum" ColumnName="Olcum" />
+                <ScalarProperty Name="FaturaWhen" ColumnName="FaturaWhen" />
+                <ScalarProperty Name="Fatura" ColumnName="Fatura" />
+                <ScalarProperty Name="OnayZamani" ColumnName="OnayZamani" />
+                <ScalarProperty Name="Onaylanmis" ColumnName="Onaylanmis" />
+                <ScalarProperty Name="OnayaGidisZamani" ColumnName="OnayaGidisZamani" />
+                <ScalarProperty Name="IsId" ColumnName="IsId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewFenKayitSonrakiNumara">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewFenKayitSonrakiNumara">
+              <MappingFragment StoreEntitySet="ViewFenKayitSonrakiNumara">
+                <ScalarProperty Name="VerilecekFenKayitNo" ColumnName="VerilecekFenKayitNo" />
+                <ScalarProperty Name="IlceId" ColumnName="IlceId" />
+                <ScalarProperty Name="Yil" ColumnName="Yil" />
+                <ScalarProperty Name="UniqueId" ColumnName="UniqueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Musteri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Musteri">
+              <MappingFragment StoreEntitySet="Musteri">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="TemsilDurumu" ColumnName="TemsilDurumu" />
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="Faks" ColumnName="Faks" />
+                <ScalarProperty Name="Telefon2" ColumnName="Telefon2" />
+                <ScalarProperty Name="Telefon1" ColumnName="Telefon1" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="TCkimlik_VergiNo" ColumnName="TCkimlik_VergiNo" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ilce">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Ilce">
+              <MappingFragment StoreEntitySet="Ilce">
+                <ScalarProperty Name="Ilce1" ColumnName="Ilce" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ili">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Ili">
+              <MappingFragment StoreEntitySet="Ili">
+                <ScalarProperty Name="IlKatsayisi" ColumnName="IlKatsayisi" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Isler">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Isler">
+              <MappingFragment StoreEntitySet="Isler">
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="MusteriTemsilDurumu" ColumnName="MusteriTemsilDurumu" />
+                <ScalarProperty Name="Musteri" ColumnName="Musteri" />
+                <ScalarProperty Name="YolUcretiniElleGir" ColumnName="YolUcretiniElleGir" />
+                <ScalarProperty Name="YolKilometre" ColumnName="YolKilometre" />
+                <ScalarProperty Name="KentselDonusum" ColumnName="KentselDonusum" />
+                <ScalarProperty Name="Tevkifatli" ColumnName="Tevkifatli" />
+                <ScalarProperty Name="Stopaj" ColumnName="Stopaj" />
+                <ScalarProperty Name="KadastroyaAsliGibiVerilecek" ColumnName="KadastroyaAsliGibiVerilecek" />
+                <ScalarProperty Name="IsinTuru" ColumnName="IsinTuru" />
+                <ScalarProperty Name="Koyu_Mahallesi" ColumnName="Koyu_Mahallesi" />
+                <ScalarProperty Name="IsinCinsi" ColumnName="IsinCinsi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Koy_Mahalle">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Koy_Mahalle">
+              <MappingFragment StoreEntitySet="Koy_Mahalle">
+                <ScalarProperty Name="YolKilometre" ColumnName="YolKilometre" />
+                <ScalarProperty Name="Koy_Mahalle1" ColumnName="Koy_Mahalle" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MusteriTemsilDurumu">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.MusteriTemsilDurumu">
+              <MappingFragment StoreEntitySet="MusteriTemsilDurumu">
+                <ScalarProperty Name="IsBilgilerindeZorunluTip" ColumnName="IsBilgilerindeZorunluTip" />
+                <ScalarProperty Name="StopajdaGoster" ColumnName="StopajdaGoster" />
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Randevu">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.Randevu">
+              <MappingFragment StoreEntitySet="Randevu">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AllDay" ColumnName="AllDay" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RandevuIlkHali">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.RandevuIlkHali">
+              <MappingFragment StoreEntitySet="RandevuIlkHali">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="VerilisZamani" ColumnName="VerilisZamani" />
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="AllDay" ColumnName="AllDay" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_RaporSozlesme">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.View_RaporSozlesme">
+              <MappingFragment StoreEntitySet="View_RaporSozlesme">
+                <ScalarProperty Name="IsinCinsiId" ColumnName="IsinCinsiId" />
+                <ScalarProperty Name="Yuzolcumu" ColumnName="Yuzolcumu" />
+                <ScalarProperty Name="FenKayitTarihiYIL" ColumnName="FenKayitTarihiYIL" />
+                <ScalarProperty Name="FenKayitTarihiAY" ColumnName="FenKayitTarihiAY" />
+                <ScalarProperty Name="FenKayitTarihiGUN" ColumnName="FenKayitTarihiGUN" />
+                <ScalarProperty Name="FenKayitTarihi" ColumnName="FenKayitTarihi" />
+                <ScalarProperty Name="FenKayitTarihiNo" ColumnName="FenKayitTarihiNo" />
+                <ScalarProperty Name="PaftaNo" ColumnName="PaftaNo" />
+                <ScalarProperty Name="AdaParselNo" ColumnName="AdaParselNo" />
+                <ScalarProperty Name="LisansSahibiIli" ColumnName="LisansSahibiIli" />
+                <ScalarProperty Name="OdaSicilNo" ColumnName="OdaSicilNo" />
+                <ScalarProperty Name="LisansliBelgeNo" ColumnName="LisansliBelgeNo" />
+                <ScalarProperty Name="LisansliBuroNo" ColumnName="LisansliBuroNo" />
+                <ScalarProperty Name="LisansSahibi_AdiSoyadi" ColumnName="LisansSahibi_AdiSoyadi" />
+                <ScalarProperty Name="IsSahibiAdress" ColumnName="IsSahibiAdress" />
+                <ScalarProperty Name="IsSahibiTelefon1" ColumnName="IsSahibiTelefon1" />
+                <ScalarProperty Name="IsSahibiTCkimlik_VergiNo" ColumnName="IsSahibiTCkimlik_VergiNo" />
+                <ScalarProperty Name="MalikiIBAdiSoyadi" ColumnName="MalikiIBAdiSoyadi" />
+                <ScalarProperty Name="GenelToplam" ColumnName="GenelToplam" />
+                <ScalarProperty Name="KDV" ColumnName="KDV" />
+                <ScalarProperty Name="Toplam" ColumnName="Toplam" />
+                <ScalarProperty Name="RandevuZamani" ColumnName="RandevuZamani" />
+                <ScalarProperty Name="IsinCinsiTanim" ColumnName="IsinCinsiTanim" />
+                <ScalarProperty Name="MusteriTemsilDurumuIsler" ColumnName="MusteriTemsilDurumuIsler" />
+                <ScalarProperty Name="IsSahibiVeUnvani" ColumnName="IsSahibiVeUnvani" />
+                <ScalarProperty Name="IsSahibi" ColumnName="IsSahibi" />
+                <ScalarProperty Name="Koy_Mahalle" ColumnName="Koy_Mahalle" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="IlinAdi" ColumnName="IlinAdi" />
+                <ScalarProperty Name="IsId" ColumnName="IsId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IsBilgileri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.IsBilgileri">
+              <MappingFragment StoreEntitySet="IsBilgileri">
+                <ScalarProperty Name="WhenCreated" ColumnName="WhenCreated" />
+                <ScalarProperty Name="WhoUpdated" ColumnName="WhoUpdated" />
+                <ScalarProperty Name="WhoCreated" ColumnName="WhoCreated" />
+                <ScalarProperty Name="WhenUpdated" ColumnName="WhenUpdated" />
+                <ScalarProperty Name="FaturaNo" ColumnName="FaturaNo" />
+                <ScalarProperty Name="Ilgilenen" ColumnName="Ilgilenen" />
+                <ScalarProperty Name="Cinsi" ColumnName="Cinsi" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Maliki" ColumnName="Maliki" />
+                <ScalarProperty Name="Takipci" ColumnName="Takipci" />
+                <ScalarProperty Name="ParselNo" ColumnName="ParselNo" />
+                <ScalarProperty Name="AdaNo" ColumnName="AdaNo" />
+                <ScalarProperty Name="PaftaNo" ColumnName="PaftaNo" />
+                <ScalarProperty Name="FenKayitTarihi" ColumnName="FenKayitTarihi" />
+                <ScalarProperty Name="FenKayitNo" ColumnName="FenKayitNo" />
+                <ScalarProperty Name="Yili" ColumnName="Yili" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LisansliBuroBilgileri">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.LisansliBuroBilgileri">
+              <MappingFragment StoreEntitySet="LisansliBuroBilgileri">
+                <ScalarProperty Name="Ilcesi" ColumnName="Ilcesi" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="Websayfasi" ColumnName="Websayfasi" />
+                <ScalarProperty Name="Eposta" ColumnName="Eposta" />
+                <ScalarProperty Name="Faks" ColumnName="Faks" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="Adresi" ColumnName="Adresi" />
+                <ScalarProperty Name="Ili" ColumnName="Ili" />
+                <ScalarProperty Name="VergiNo" ColumnName="VergiNo" />
+                <ScalarProperty Name="OdaSicilNo" ColumnName="OdaSicilNo" />
+                <ScalarProperty Name="LisansliBelgeNo" ColumnName="LisansliBelgeNo" />
+                <ScalarProperty Name="LisansliBuroNo" ColumnName="LisansliBuroNo" />
+                <ScalarProperty Name="Unvani" ColumnName="Unvani" />
+                <ScalarProperty Name="AdiSoyadi" ColumnName="AdiSoyadi" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewTeslimSenedi">
+            <EntityTypeMapping TypeName="LIHKAB_dbModel.ViewTeslimSenedi">
+              <MappingFragment StoreEntitySet="ViewTeslimSenedi">
+                <ScalarProperty Name="ToplamFiyat" ColumnName="ToplamFiyat" />
+                <ScalarProperty Name="BirimFiyati" ColumnName="BirimFiyati" />
+                <ScalarProperty Name="isSahibi" ColumnName="isSahibi" />
+                <ScalarProperty Name="LisansliBuroSahibiUnvani" ColumnName="LisansliBuroSahibiUnvani" />
+                <ScalarProperty Name="LisansliBuroSahibi" ColumnName="LisansliBuroSahibi" />
+                <ScalarProperty Name="FenKayitTarihiYIL" ColumnName="FenKayitTarihiYIL" />
+                <ScalarProperty Name="FenKayitTarihiAY" ColumnName="FenKayitTarihiAY" />
+                <ScalarProperty Name="FenKayitTarihiGUN" ColumnName="FenKayitTarihiGUN" />
+                <ScalarProperty Name="FenKayitTarihi" ColumnName="FenKayitTarihi" />
+                <ScalarProperty Name="Tanim" ColumnName="Tanim" />
+                <ScalarProperty Name="YuzOlcumu" ColumnName="YuzOlcumu" />
+                <ScalarProperty Name="ParselNo" ColumnName="ParselNo" />
+                <ScalarProperty Name="AdaNo" ColumnName="AdaNo" />
+                <ScalarProperty Name="PaftaNo" ColumnName="PaftaNo" />
+                <ScalarProperty Name="Koy_Mahalle" ColumnName="Koy_Mahalle" />
+                <ScalarProperty Name="Cinsi" ColumnName="Cinsi" />
+                <ScalarProperty Name="isId" ColumnName="isId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

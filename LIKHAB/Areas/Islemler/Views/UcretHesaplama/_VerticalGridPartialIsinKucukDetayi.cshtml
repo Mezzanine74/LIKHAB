@@ -1,0 +1,19 @@
+@Html.DevExpress().VerticalGrid(settings => {
+    settings.Name = "VerticalGridIsinKucukDetayi";
+    settings.CallbackRouteValues = new { Controller = "UcretHesaplama", Action = "VerticalGridPartialIsinKucukDetayi" };
+
+    settings.Width = 500;
+    settings.SettingsPager.Visible = false;
+    settings.Settings.ShowHeaderFilterButton = false;
+
+    settings.KeyFieldName = "id";
+    settings.Rows.Add("IsinCinsi");
+    settings.Rows.Add("AdiSoyadi");
+    settings.Rows.Add("MusteriTemsilDurumu");
+    settings.Rows.Add(r => {
+        r.FieldName = "AlinacakGenelToplam";
+        r.RecordStyle.HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign.Left;
+        r.PropertiesEdit.DisplayFormatString = "n";
+    });
+
+}).Bind(Model).GetHtml()

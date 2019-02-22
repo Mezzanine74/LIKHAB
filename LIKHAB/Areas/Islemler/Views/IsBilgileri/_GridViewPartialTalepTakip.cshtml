@@ -1,0 +1,86 @@
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewTalepTakip";
+        settings.CallbackRouteValues = new { Controller = "IsBilgileri", Action = "GridViewPartialTalepTakip" };
+
+
+        settings.KeyFieldName = "id";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(850);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.ClientSideEvents.RowClick = "function(s, e){ onGridViewTalepTakipRowClick(s, e) }";
+        settings.ClientSideEvents.BeginCallback = "function(s, e){onGridViewTalepBeginCallback(s, e)}";
+
+        settings.AutoFilterCellEditorCreate += (s, e) =>
+        {
+            if (e.Column.FieldName == "Ilcesi")
+            {
+                ComboBoxProperties combo = new ComboBoxProperties();
+                e.EditorProperties = combo;
+            }
+        };
+
+        settings.AutoFilterCellEditorInitialize += (s, e) =>
+        {
+            if (e.Column.FieldName == "Ilcesi")
+            {
+                ASPxComboBox combo = e.Editor as ASPxComboBox;
+                combo.ValueType = typeof(string);
+
+                combo.ClientVisible = false;
+                combo.ClientInstanceName = "comboIlcesiFilter";
+                combo.ClientSideEvents.TextChanged = "function(s, e){onComboIlceTextChanged(s,e)}";
+
+                foreach (var item in ViewBag.Ilceler)
+                {
+                    combo.Items.Add(item);
+                }
+
+                combo.Value = ViewBag.SecilmisIlce;
+
+            }
+        };
+
+        settings.BeforeGetCallbackResult += (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            g.JSProperties.Add("cpFilterExpression", g.FilterExpression);
+        };
+
+        settings.HtmlRowPrepared = (s, e) =>
+        {
+            if (e.RowType != GridViewRowType.Data) return;
+
+            bool isKapandi = (bool)e.GetValue("IsKapandi");
+            if (isKapandi)
+                e.Row.ForeColor = System.Drawing.Color.Red;
+
+        };
+
+        settings.Columns.Add("Yili");
+        settings.Columns.Add(column=> { column.FieldName = "FenKayitNo"; column.SortOrder = DevExpress.Data.ColumnSortOrder.Descending; } );
+        settings.Columns.Add("IsinCinsi");
+        settings.Columns.Add(row => { row.FieldName = "Maliki"; row.Caption = "Isin Sahibi"; });
+        settings.Columns.Add("Ilcesi");
+        settings.Columns.Add("KoyMahalle");
+        settings.Columns.Add("AdaNo");
+        settings.Columns.Add("ParselNo");
+        settings.Columns.Add("Aciklama");
+
+    });
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,80 @@
+@{ Layout = "~/Views/Shared/_rootLayout.cshtml"; }
+@model LIKHAB.Models.RegisterModel
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.TextBox },
+        new StyleSheet { ExtensionType = ExtensionType.CheckBox },
+        new StyleSheet { ExtensionType = ExtensionType.Button }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.TextBox },
+        new Script { ExtensionType = ExtensionType.CheckBox },
+        new Script { ExtensionType = ExtensionType.Button }
+        )
+}
+
+<div class="accountHeader">
+    <h2>Create a New Account</h2>
+    <p>Use the form below to create a new account.</p>
+    <p style="color:red">@ViewBag.ErrorMessage</p>
+</div>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+
+    @Html.DevExpress().TextBoxFor(m => m.UserName, tb => {
+        tb.Properties.Caption = "User Name";
+        tb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        tb.ShowModelErrors = true;
+        tb.Properties.ValidationSettings.Display = Display.Dynamic;
+        tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+    }).GetHtml()
+
+    @Html.DevExpress().TextBoxFor(m => m.AdiSoyadi, tb =>
+    {
+        tb.Properties.Caption = "Adi Soyadi";
+        tb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        tb.ShowModelErrors = true;
+        tb.Properties.ValidationSettings.Display = Display.Dynamic;
+        tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+    }).GetHtml()
+
+
+    @Html.DevExpress().TextBoxFor(m => m.Email, tb => {
+        tb.Properties.Caption = "Email";
+        tb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        tb.ShowModelErrors = true;
+        tb.Properties.ValidationSettings.Display = Display.Dynamic;
+        tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+    }).GetHtml()
+    
+    @Html.DevExpress().TextBoxFor(m => m.Password, tb => {
+        tb.Properties.Caption = "Password";
+        tb.Properties.Password = true;
+        tb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        tb.ShowModelErrors = true;
+        tb.Properties.ValidationSettings.Display = Display.Dynamic;
+        tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+    }).GetHtml()
+
+    @Html.DevExpress().TextBoxFor(m => m.ConfirmPassword, tb => {
+        tb.Properties.Caption = "Confirm Password";
+        tb.Properties.Password = true;
+        tb.Properties.CaptionSettings.Position = EditorCaptionPosition.Top;
+        tb.ShowModelErrors = true;
+        tb.Properties.ValidationSettings.Display = Display.Dynamic;
+        tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+    }).GetHtml()
+    <br />
+    @Html.DevExpress().Button(b => {
+        b.Name = "Button";
+        b.Text = "Register";
+        b.UseSubmitBehavior = true;
+    }).GetHtml()
+}

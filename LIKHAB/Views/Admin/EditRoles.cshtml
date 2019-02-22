@@ -1,0 +1,59 @@
+﻿@model LIKHAB.Models.UserAndRolesDTO
+@{
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <br />
+    @Html.ValidationSummary(true,
+    "",
+    new { @class = "text-danger" })
+    <div>
+        @Html.ActionLink("Back",
+       "EditUser",
+       new { UserName = Model.UserName },
+       new { @class = "btn btn-default" })
+        <input type="submit" value="Add Role" class="btn btn-default" />
+        @Html.DropDownList("AddRole")
+    </div>
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+                Existing Roles:
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.colUserRoleDTO)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @if (!((Model.UserName.ToLower() ==
+                        this.User.Identity.Name.ToLower()) &&
+                        item.RoleName == "Administrator") &&
+                        item.RoleName != "No Roles Found")
+                    {
+                        @Html.ActionLink("Delete", "DeleteRole",
+                       new { UserName = item.UserName, RoleName = item.RoleName },
+                        new
+                        {
+                            onclick =
+                        "return confirm('Are you sure you wish to delete this role?');"
+                        })
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+}

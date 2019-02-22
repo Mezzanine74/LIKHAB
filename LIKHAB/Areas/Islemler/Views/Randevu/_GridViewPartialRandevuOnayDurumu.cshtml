@@ -1,0 +1,113 @@
+
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewRandevuOnayDurumu";
+        settings.CallbackRouteValues = new { Controller = "Randevu", Action = "GridViewPartialRandevuOnayDurumu" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Randevu", Action = "GridViewPartialRandevuOnayDurumuAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Randevu", Action = "GridViewPartialRandevuOnayDurumuUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Randevu", Action = "GridViewPartialRandevuOnayDurumuDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "UniqueId";
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.HtmlRowPrepared = (s, e) =>
+        {
+            if (Convert.ToInt32(e.GetValue("OnayId")) > 0)
+            {
+                e.Row.BackColor = System.Drawing.Color.LightGreen;
+            } else
+            {
+                e.Row.BackColor = System.Drawing.Color.LightPink;
+            }
+
+        };
+
+        settings.CommandButtonInitialize = (s, e) =>
+        {
+            if (e.ButtonType == ColumnCommandButtonType.Edit)
+            {
+                MVCxGridView g = s as MVCxGridView;
+                var userName = (string)g.GetRowValues(e.VisibleIndex, "UserName"); //use a correct field name and cast a resultant value to a correct value type
+
+                e.Visible = userName == HelperClasses.UserInfo.getUserNameOfCurrentUser();
+            }
+        };
+
+        settings.ClientSideEvents.BeginCallback = "onGridViewRandevuOnayDurumuBeginCallback";
+        settings.ClientSideEvents.EndCallback = "onGridViewRandevuOnayDurumuEndCallback";
+
+        settings.CustomJSProperties = (s, e) =>
+        {
+                e.Properties["cpOnayMesaji"] = ViewData["onayMesaji"] != null ? (ViewData["onayMesaji"].ToString().Length > 0 ? ViewData["onayMesaji"] : null) : null;
+        };
+
+        settings.Columns.Add("OnayVerecekUserId").Visible = false;
+
+        settings.Columns.Add("RandevuId").Visible = false;
+
+        settings.Columns.Add("UserName").Visible = false;
+
+        settings.Columns.Add("AdiSoyadi");
+
+        settings.Columns.Add("OnayId").Visible = false;
+
+        settings.Columns.Add("OnayZamani");
+
+        settings.SetEditFormTemplateContent(et =>
+        {
+
+            Html.DevExpress().FormLayout(frm =>
+            {
+                frm.Name = "frmRandevuOnay";
+                frm.ColCount = 2;
+
+                frm.Items.Add(item =>
+                {
+                    item.Caption = "Onay";
+                    item.NestedExtension().CheckBox(cb =>
+                    {
+                        cb.Name = "cbOnay";
+                        cb.Checked = DataBinder.Eval(et.DataItem, "OnayId") != null ? true : false;
+                        cb.Properties.ClientSideEvents.ValueChanged = "function(s,e) { cbOnayValueChanged(s,e, '" + (int)HelperClasses.Enums.onayTuru.Randevu + "', '" + DataBinder.Eval(et.DataItem, "OnayVerecekUserId").ToString() + "', '" + DataBinder.Eval(et.DataItem, "RandevuId").ToString() + "')}";
+                    });
+                });
+
+                frm.Items.Add(item =>
+                {
+                    item.ShowCaption= DefaultBoolean.False;
+                    item.NestedExtension().Label(cb =>
+                    {
+                        cb.Name = "lbOnay";
+                        cb.Text = DataBinder.Eval(et.DataItem, "OnayZamani") != null ? DataBinder.Eval(et.DataItem, "OnayZamani").ToString() : string.Empty;
+                    });
+                });
+
+
+
+            }).Render();
+
+        });
+
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

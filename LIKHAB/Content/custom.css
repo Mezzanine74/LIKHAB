@@ -1,0 +1,56 @@
+﻿/*MVC Validation CSS*/
+.field-validation-error {
+    color: red;
+    /*font-size: smaller;*/
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 2px ridge #ff0000;
+    background-color: #ffeeee !important;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.silButton {
+    background: #e91c1c;
+    border: 0;
+    color: white;
+    font-weight: bold;
+    padding: 0;
+    height: auto;
+}
+
+/*VERTICAL GRID*/
+.dxvgCategory_Aqua {
+    color: #4D8AB5;
+    font-weight: bold;
+    background-color: #DBEBFF;
+    padding: 1px 6px;
+    border-bottom: 1px solid #AECAF0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dxvgHeader_Aqua {
+    cursor: pointer;
+    color: #283B56;
+    font-weight: normal;
+    text-align: left;
+    background-color: #E2F0FF;
+    padding: 1px 5px;
+    border: 1px Solid #AECAF0;
+    border-width: 0 1px 1px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}

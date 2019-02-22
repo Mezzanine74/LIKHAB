@@ -1,0 +1,76 @@
+@Html.DevExpress().VerticalGrid(settings =>
+{
+    settings.Name = "UcretDokumu";
+    settings.CallbackRouteValues = new { Controller = "UcretHesaplama", Action = "VerticalGridPartialUcretDokumu" };
+
+    settings.SettingsEditing.BatchUpdateRouteValues = new { Controller = "UcretHesaplama", Action = "VerticalGridPartialUcretDokumuUpdate" };
+    settings.SettingsEditing.Mode = VerticalGridEditingMode.Batch;
+    settings.SettingsEditing.BatchEditSettings.StartEditAction = GridViewBatchStartEditAction.DblClick;
+
+    settings.ClientSideEvents.EndCallback = "function(s,e){ucretDokumuEndCallback(s,e)}";
+
+    settings.Width = 350;
+    settings.SettingsPager.Visible = false;
+    settings.Settings.ShowHeaderFilterButton = false;
+
+    settings.KeyFieldName = "id";
+
+    settings.Rows.AddCategory(c =>
+    {
+        c.Caption = "Tahsilat Kalemleri";
+
+        c.Rows.Add("YolUcreti").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("DenetimUcreti").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("DamgaVergisi").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("BelgeUcreti").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("KontrolUcreti").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add(rw =>
+        {
+            rw.FieldName = "Toplam";
+            rw.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            rw.HeaderStyle.BackColor = System.Drawing.Color.SteelBlue;
+            rw.RecordStyle.Font.Bold = true;
+            rw.PropertiesEdit.DisplayFormatString = "{0:n}";
+        });
+    });
+
+    settings.Rows.AddCategory(c =>
+    {
+        c.Caption = "Fatura Kalemleri";
+
+        c.Rows.Add("ToplamBrutUcret").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("Stopaj20percent").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("KesintilerToplami").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("GenelToplam").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("KDV18percent").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("TevkifEdilenKDV").PropertiesEdit.DisplayFormatString = "{0:n}";
+        c.Rows.Add("TahsilEdilenKDV").PropertiesEdit.DisplayFormatString = "{0:n}";
+
+        c.Rows.Add(rw =>
+        {
+            rw.FieldName = "NetAlinan";
+            rw.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            rw.HeaderStyle.BackColor = System.Drawing.Color.SteelBlue;
+            rw.RecordStyle.Font.Bold = true;
+            rw.PropertiesEdit.DisplayFormatString = "{0:n}";
+        });
+
+    });
+
+    settings.Rows.AddCategory(c =>
+    {
+        c.Caption = "";
+
+        c.Rows.Add(rw =>
+        {
+            rw.FieldName = "AlinacakGenelToplam";
+            rw.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            rw.HeaderStyle.BackColor = System.Drawing.Color.SteelBlue;
+            rw.RecordStyle.Font.Bold = true;
+            rw.PropertiesEdit.DisplayFormatString = "{0:n}";
+        });
+
+
+    });
+
+}).SetEditErrorText((string)ViewData["EditError"]).Bind(Model).GetHtml()

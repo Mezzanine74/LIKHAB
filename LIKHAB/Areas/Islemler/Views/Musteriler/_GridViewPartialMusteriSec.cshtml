@@ -1,0 +1,171 @@
+﻿
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridViewMusteriSec";
+        settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSec" };
+        settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Default;
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSecAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSecUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSecDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "id";
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(1250);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 5;
+        settings.Settings.ShowGroupPanel = false;
+        settings.SettingsSearchPanel.Visible = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+
+        settings.ClientSideEvents.BeginCallback = "function(s,e){ OnGridViewMusteriSecBeginCallBack(s,e);}";
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+            column.SetDataItemTemplateContent(c =>
+            {
+
+                bool stopajdaGoster = false;
+
+                try
+                {
+                    stopajdaGoster = (bool)DataBinder.Eval(c.DataItem, "StopajdaGoster");
+                }
+                catch (Exception)
+                {
+
+                }
+
+
+                if (!c.Grid.IsNewRowEditing)
+                {
+                    Html.DevExpress().Button(b =>
+                    {
+                        var visibleIndex = c.VisibleIndex;
+                        bool buttonGoster = false;
+                        if ((ViewBag.Stopaj == null ? false : ViewBag.Stopaj) && Convert.ToBoolean(stopajdaGoster))
+                        {
+                            buttonGoster = true;
+                        }
+                        else if (!(ViewBag.Stopaj == null ? false : ViewBag.Stopaj) && !Convert.ToBoolean(stopajdaGoster))
+                        {
+                            buttonGoster = true;
+                        }
+                        else
+                        {
+                            buttonGoster = false;
+                        }
+
+                        b.Name = "btnmusteriSec" + c.VisibleIndex;
+                        b.Text = "Musteriyi Sec >";
+                        b.ClientVisible = buttonGoster;
+                        b.ClientSideEvents.Click = " function(s,e){ GridViewMusteriSecBtnClick(" + visibleIndex + ");}";
+                    }).GetHtml();
+                }
+
+            });
+
+        });
+
+        settings.Columns.Add("AdiSoyadi");
+        settings.Columns.Add("TCkimlik_VergiNo");
+        settings.Columns.Add("VergiDairesi");
+        settings.Columns.Add("Telefon1");
+        settings.Columns.Add("Telefon2");
+        //settings.Columns.Add("Faks");
+        settings.Columns.Add("Eposta");
+        settings.Columns.Add("Adress");
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.EditFormSettings.Visible = DevExpress.Utils.DefaultBoolean.False;
+            column.SetDataItemTemplateContent(c =>
+            {
+
+                bool stopajdaGoster = false;
+
+                try
+                {
+                    stopajdaGoster = (bool)DataBinder.Eval(c.DataItem, "StopajdaGoster");
+                }
+                catch (Exception)
+                {
+
+                }
+
+                if (!c.Grid.IsNewRowEditing)
+                {
+                    Html.DevExpress().Button(b =>
+                    {
+                        var visibleIndex = c.VisibleIndex;
+                        bool buttonGoster;
+                        if ((ViewBag.Stopaj == null ? false : ViewBag.Stopaj) && Convert.ToBoolean(stopajdaGoster))
+                        {
+                            buttonGoster = true;
+                        }
+                        else if (!(ViewBag.Stopaj == null ? false : ViewBag.Stopaj) && !Convert.ToBoolean(stopajdaGoster))
+                        {
+                            buttonGoster = true;
+                        }
+                        else
+                        {
+                            buttonGoster = false;
+                        }
+
+                        b.Name = "btnDuzenle" + c.VisibleIndex;
+                        b.Text = "Temsil Durumunu Degistir >";
+                        b.ClientVisible = !buttonGoster;
+                        b.ClientSideEvents.Click = " function(s,e){ GridViewMusteriSec.StartEditRow(" + visibleIndex + ");}";
+                    }).GetHtml();
+                }
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TemsilDurumu";
+            column.Caption = "Temsil Durumu";
+            column.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "Tanim";
+                p.ValueField = "id";
+
+                p.ValueType = typeof(int);
+                p.DataSource = ViewBag.TemsilDurumu;
+            });
+        });
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+        };
+
+
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

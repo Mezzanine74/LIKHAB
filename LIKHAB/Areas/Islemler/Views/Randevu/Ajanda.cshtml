@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Ajanda";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.TreeView },
+        new StyleSheet { ExtensionType = ExtensionType.Scheduler }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.TreeView },
+        new Script { ExtensionType = ExtensionType.Scheduler }
+        )
+}
+
+<h2>Ajanda</h2>
+
+@{Html.RenderPartial("_RandevuEtiketListesi");}
+
+@Html.Action("SchedulerPartialAjanda")

@@ -1,0 +1,47 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewUsers";
+        settings.CallbackRouteValues = new { Controller = "Main", Action = "GridViewPartialUser" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Main", Action = "GridViewPartialUserAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Main", Action = "GridViewPartialUserUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Main", Action = "GridViewPartialUserDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "Id";
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(550);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("Email").Width = System.Web.UI.WebControls.Unit.Pixel(150); ;
+        settings.Columns.Add("UserName").Width = System.Web.UI.WebControls.Unit.Pixel(150); ;
+        settings.Columns.Add("AdiSoyadi").Width = System.Web.UI.WebControls.Unit.Pixel(150); ;
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+        };
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

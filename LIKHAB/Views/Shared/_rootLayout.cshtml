@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>@ViewBag.Title</title>
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Icons },
+        new StyleSheet { ExtensionType = ExtensionType.Ribbon },
+        new StyleSheet { ExtensionType = ExtensionType.PopupControl },
+        new StyleSheet { ExtensionType = ExtensionType.TabControl },
+        new StyleSheet { ExtensionType = ExtensionType.Splitter }
+    )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionSuite = ExtensionSuite.Icons },
+        new Script { ExtensionType = ExtensionType.Ribbon },
+        new Script { ExtensionType = ExtensionType.PopupControl },
+        new Script { ExtensionType = ExtensionType.TabControl },
+        new Script { ExtensionType = ExtensionType.Splitter }
+    )
+
+    @RenderSection("header", required: false)
+
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/custom.css")" rel="stylesheet" type="text/css" />
+
+    <link href="~/Content/dx.common.css" rel="stylesheet" />
+    <link href="~/Content/dx.light.compact.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="~/Scripts/dx.all.js"></script>
+
+</head>
+<body>
+    @Html.DevExpress().Splitter(settings => {
+    settings.Name = "MainSplitter";
+    settings.AllowResize = false;
+    settings.Orientation = System.Web.UI.WebControls.Orientation.Vertical;
+    settings.FullscreenMode = true;
+    settings.SeparatorVisible = false;
+    settings.Styles.Pane.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+    settings.Styles.Pane.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(0);
+
+    settings.Panes.Add(pane => {
+        pane.Name = "Header";
+        pane.AutoHeight = true;
+        pane.PaneStyle.BorderBottom.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(1);
+        pane.PaneStyle.CssClass = "headerPane";
+        pane.SetContent(() => {
+            Html.RenderPartial("HeaderPartialView");
+        });
+    });
+
+    settings.Panes.Add(pane => {
+        pane.Name = "Content";
+        pane.PaneStyle.CssClass = "mainContentPane";
+        pane.MinSize = System.Web.UI.WebControls.Unit.Pixel(375);
+        pane.PaneStyle.BackColor = System.Drawing.Color.White;
+        pane.PaneStyle.BorderBottom.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(1);
+        pane.PaneStyle.Paddings.Padding = System.Web.UI.WebControls.Unit.Pixel(5);
+        pane.SetContent(RenderBody().ToHtmlString());
+    });
+
+
+    //settings.Panes.Add(pane => {
+    //    pane.Name = "Footer";
+    //    pane.Size = System.Web.UI.WebControls.Unit.Pixel(125);
+    //    pane.PaneStyle.CssClass = "footerPane";
+    //    pane.SetContent(() => {
+    //        Html.RenderPartial("FooterPartialView");
+    //    });
+    //});
+
+}).GetHtml()
+    
+
+@RenderSection("scripts", required: false)
+
+<script>
+// Hidden kontrollerin validationi icin gerekli
+// $(function(){}) icine koyulmamasi gerek !
+$.validator.setDefaults({
+    ignore: ""
+});
+</script>
+
+</body>
+</html>

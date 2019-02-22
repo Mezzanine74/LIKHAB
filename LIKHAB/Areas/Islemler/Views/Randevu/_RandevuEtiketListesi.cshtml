@@ -1,0 +1,32 @@
+﻿@Html.DevExpress().TreeView(
+    settings =>
+    {
+        settings.Name = "tvFeatures";
+        settings.AllowCheckNodes = false;
+        settings.AllowSelectNode = false;
+        settings.EnableAnimation = true;
+        settings.EnableHotTrack = true;
+        settings.ShowTreeLines = true;
+        settings.ShowExpandButtons = true;
+        //settings.Width = 300;
+
+        settings.Nodes.Add(node =>
+        {
+
+            node.Text = "Etiket Listesi ve Renkleri";
+
+            LIKHAB.Areas.Islemler.Controllers.Etiketler etiketler = new LIKHAB.Areas.Islemler.Controllers.Etiketler();
+
+            foreach (LIKHAB.Areas.Islemler.Controllers.Etiketler.EtiketElemani etiketElemani in etiketler.getRandevuEtiketListesi())
+            {
+                node.Nodes.Add(nd =>
+                {
+                    nd.Text = etiketElemani.displayName;
+                    nd.NodeStyle.BackColor = etiketElemani.color;
+
+                });
+            }
+
+        });
+
+    }).GetHtml()

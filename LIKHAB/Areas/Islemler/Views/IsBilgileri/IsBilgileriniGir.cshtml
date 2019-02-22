@@ -1,0 +1,452 @@
+﻿@model LIKHAB.Areas.Islemler.ViewModels.IsBilgileriViewModel
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.FormLayout },
+        new StyleSheet { ExtensionType = ExtensionType.Button },
+        new StyleSheet { ExtensionType = ExtensionType.PopupControl },
+        new StyleSheet { ExtensionType = ExtensionType.LoadingPanel },
+        new StyleSheet { ExtensionType = ExtensionType.GridView },
+        new StyleSheet { ExtensionType = ExtensionType.VerticalGrid }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.FormLayout },
+        new Script { ExtensionType = ExtensionType.Button },
+        new Script { ExtensionType = ExtensionType.PopupControl },
+        new Script { ExtensionType = ExtensionType.LoadingPanel },
+        new Script { ExtensionType = ExtensionType.GridView },
+        new Script { ExtensionType = ExtensionType.VerticalGrid }
+        )
+}
+
+@{
+    ViewBag.Title = "Is Bilgilerini Gir";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+
+    var isId = HelperClasses.Genel.getParameterFromURL();
+
+    var deadline = LIKHAB.Models.helper.Randevu.randevuBiletiKalanToplamSaniye(isId);
+
+    LIKHAB.Models.helper.IsBilgileri.GirisHatalari girisHatalari = LIKHAB.Models.helper.IsBilgileri.isBilgileriGirisHatalari(isId);
+}
+
+
+<div id="popupErrors">
+    <span style="font-size:large;">@girisHatalari.hataMesaji</span>
+</div>
+
+<h1>@ViewBag.Validmi</h1>
+
+@using (Html.BeginForm("IsBilgileriniGir", "IsBilgileri", FormMethod.Post))
+{ 
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Is);
+
+    @Html.DevExpress().FormLayout(settings =>
+{
+    settings.Name = "FormIsBilgileri";
+    settings.ColCount = 3;
+    //settings.Width = 1300;
+
+    settings.Items.AddGroupItem(group =>
+    {
+        group.Caption = "Tumleyici Grup";
+        group.GroupBoxDecoration = GroupBoxDecoration.None;
+        group.ColCount = 2;
+        group.ColSpan = 2;
+
+        group.Items.AddGroupItem(groupSub =>
+        {
+            groupSub.Caption = "Is Bilgileri";
+            groupSub.GroupBoxDecoration = GroupBoxDecoration.Box;
+            groupSub.ColCount = 2;
+            groupSub.ColSpan = 2;
+
+            groupSub.Items.Add(m => m.FenKayitNo, item =>
+            {
+                item.Caption = "Fen Kayit No";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "FenKayitNo";
+                    tb.ReadOnly = true;
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.AdaNo, item =>
+            {
+                item.Caption = "Ada No";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "AdaNo";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.FenKayitTarihi, item =>
+            {
+                item.Caption = "Fen Kayit Tarihi";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().DateEdit(tb =>
+                {
+                    tb.Name = "FenKayitTarihi";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    tb.Properties.ClientSideEvents.Init = "function(){FenKayitTarihi.SetValue(new Date());}";
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.ParselNo, item =>
+            {
+                item.Caption = "Parsel No";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "ParselNo";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.PaftaNo, item =>
+            {
+                item.Caption = "Pafta No";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "PaftaNo";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.Yuzolcumu, item =>
+            {
+                item.Caption = "Yuzolcumu";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "Yuzolcumu";
+                    tb.ShowModelErrors = true;
+                    tb.ReadOnly = Model.Yuzolcumu > (decimal)0.0 ? true : false;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+                });
+            });
+
+            groupSub.Items.Add(m => m.Ilgilenen, item =>
+            {
+                item.Caption = "Ilgilenen";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "Ilgilenen";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                });
+            });
+
+            groupSub.Items.Add(m => m.FaturaNo, item =>
+            {
+                item.Caption = "FaturaNo";
+                item.ColSpan = 1;
+                //item.Width = 300;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "FaturaNo";
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                });
+            });
+
+        }).Name = "grpIsBilgileri";
+
+        group.Items.AddGroupItem(groupSub =>
+        {
+            groupSub.Caption = "...";
+            groupSub.GroupBoxDecoration = GroupBoxDecoration.Box;
+            groupSub.ColCount = 3;
+            groupSub.ColSpan = 2;
+
+            groupSub.Items.Add(m => m.Takipci, item => { item.Caption = "Takipci"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "Takipci"; }); });
+            groupSub.Items.Add(m => m.Maliki, item => {
+                item.Caption = "Maliki";
+                item.ColSpan = 1;
+
+                item.NestedExtension().TextBox(tb =>
+                {
+                    tb.Name = "Maliki";
+                    tb.ReadOnly = true;
+                    tb.ShowModelErrors = true;
+                    tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                    tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                    tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                });
+            });
+            groupSub.Items.Add(item =>
+            {
+                item.ShowCaption = DefaultBoolean.False;
+                item.ColSpan = 1;
+
+                item.SetNestedContent(() =>
+                {
+                    ViewContext.Writer.Write(
+                                        Html.DevExpress().Button(btn =>
+                                        {
+                                            btn.Name = "btnMusteriSec";
+                                            btn.Text = "Maliki Sec";
+                                            btn.ClientSideEvents.Click = "function(s, e) {onBtnMusteriSecClick(s, e);}";
+                                        }).GetHtml()
+                        );
+                });
+            });
+
+            groupSub.Items.Add(m => m.Aciklama, item => { item.Caption = "Aciklama"; item.ColSpan = 3; item.NestedExtension().TextBox(tb => {
+                tb.Name = "Aciklama";
+                tb.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                tb.ShowModelErrors = true;
+                tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+            }); });
+            groupSub.Items.Add(m => m.Cinsi, item => { item.Caption = "Cinsi"; item.ColSpan = 3; item.NestedExtension().TextBox(tb => {
+                tb.Name = "Cinsi";
+                tb.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+                tb.ShowModelErrors = true;
+                tb.Properties.ValidationSettings.Display = Display.Dynamic;
+                tb.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.ImageWithText;
+                tb.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+
+            }); });
+
+        });
+
+        group.Items.AddGroupItem(groupSub =>
+        {
+            groupSub.Caption = "Isin Cinsi";
+            groupSub.GroupBoxDecoration = GroupBoxDecoration.Box;
+            groupSub.ColCount = 2;
+            groupSub.ColSpan = 2;
+
+            groupSub.Items.Add(m => m.IsinCinsi, item =>{item.Caption = "Isin Cinsi";item.ColSpan = 2;item.NestedExtension().TextBox(tb => { tb.Name = "IsinCinsi"; tb.Width = System.Web.UI.WebControls.Unit.Percentage(100); tb.ReadOnly = true; });});
+            groupSub.Items.Add(m => m.Ili, item => { item.Caption = "Ili"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "Ili"; tb.ReadOnly = true; }); });
+            groupSub.Items.Add(m => m.IsSahibi, item => { item.Caption = "IsSahibi"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "IsSahibi"; tb.ReadOnly = true; }); });
+            groupSub.Items.Add(m => m.Ilcesi, item => { item.Caption = "Ilcesi"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "Ilcesi"; tb.ReadOnly = true; }); });
+            groupSub.Items.AddEmptyItem();
+            groupSub.Items.Add(m => m.KoyMahalle, item => { item.Caption = "KoyMahalle"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "KoyMahalle"; tb.ReadOnly = true; }); });
+            groupSub.Items.Add(m => m.IlKatsayi, item => { item.Caption = "IlKatsayi"; item.ColSpan = 1; item.NestedExtension().TextBox(tb => { tb.Name = "IlKatsayi"; tb.ReadOnly = true; }); });
+
+        });
+
+        group.Items.AddGroupItem(groupSub =>
+        {
+            groupSub.Caption = "Ucret Dokumu";
+            groupSub.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+            groupSub.ColCount = 2;
+            groupSub.ColSpan = 2;
+
+            groupSub.Items.Add(item => {
+                item.ShowCaption = DefaultBoolean.False;
+                item.ColSpan = 2;
+                item.SetNestedContent(() => {
+                    ViewContext.Writer.Write(Html.Action("VerticalGridPartialUcretDokumu", "UcretHesaplama", new { isId = Model.Is }));
+                });
+            });
+        });
+    });
+
+    settings.Items.AddGroupItem(group =>
+    {
+        group.Caption = "Aksiyonlar";
+        group.GroupBoxDecoration = GroupBoxDecoration.Box;
+        group.ColCount = 1;
+        group.ColSpan = 1;
+
+        group.Items.Add(item => { item.ShowCaption = DefaultBoolean.False; item.NestedExtension().Button(btn => { btn.Name = "btnEkle"; btn.Text = "Ekle"; btn.UseSubmitBehavior = true; }); });
+        group.Items.Add(item => { item.ShowCaption = DefaultBoolean.False; item.NestedExtension().Button(btn => {
+            btn.Name = "btnVazgec";
+            btn.Text = "Vazgec";
+            btn.ClientSideEvents.Click = "function(){isIleIlgiliTumBilgileriSil(" + @isId + ")}";
+        }); });
+        //group.Items.Add(item => { item.ShowCaption = DefaultBoolean.False; item.NestedExtension().Button(btn => { btn.Name = "btnVeriGetir"; btn.Text = "Veri Getir"; }); });
+        //group.Items.Add(item => { item.ShowCaption = DefaultBoolean.False; item.NestedExtension().Button(btn => { btn.Name = "btnSubeSec"; btn.Text = "Sube Sec"; }); });
+
+    });
+
+
+}).Bind(Model).GetHtml()
+}
+
+<form>
+    @Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "popupMusteriSec";
+        settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSecIsBilgisinde" };
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.HeaderText = "Musteri Bilgileri";
+        settings.Modal = true;
+        settings.ClientSideEvents.EndCallback = "function (s,e) { loadingPanelMusteri.Hide(); s.Show(); }";
+
+    }).GetHtml()
+</form>
+
+@Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "loadingPanelMusteri";
+        settings.Modal = false;
+        //settings.ContainerElementID = "FormSupplierEnter";
+        settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+    }).GetHtml()
+
+@Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "lpProcessing";
+        settings.Text = "Islem yapiliyor";
+        settings.Modal = true;
+        //settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+    }).GetHtml()
+
+<script type="text/javascript">
+
+    // variables
+
+    var popup = $("#popupErrors").dxPopup({
+        title: 'Hata',
+        visible: false,
+        width: 500,
+        height: 200,
+    }).dxPopup('instance');
+
+    function onGridViewPartialMusteriSecIsBilgisindeMusteriSecBtnClick(s, e, index) {
+
+        GridViewMusteriSecIsBilgisiSayfasinda.GetRowValues(
+            index,
+            "AdiSoyadi",
+            function (value) {
+
+                popupMusteriSec.Hide();
+                Maliki.SetValue(value);
+
+            });
+    }
+
+    // document ready
+    $(function () {
+        onBtnMusteriSecClick = function (s, e) {
+            loadingPanelMusteri.Show();
+            popupMusteriSec.PerformCallback({  });
+        };
+
+    })
+
+
+    if ('@girisHatalari.hataVarmi' == 'True') {
+        FormIsBilgileri.SetEnabled(false);
+        popup.show();
+    } else {
+        FormIsBilgileri.SetEnabled(true);
+    }
+
+
+    $(function () {
+        isIleIlgiliTumBilgileriSil = function(id) {
+
+            DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+            DevExpress.ui.dialog.confirm(
+                "Is ve ilintili bilgileri silmek istediginizden emin misiniz?",
+                "Is ile ilintili bilgiler silinecek").done(function (e) {
+                    if (e) {
+                        // loading panel baslat
+                        lpProcessing.Show();
+
+                        $.getJSON('@HelperClasses.LocalHost.getIsIleIlintiliBilgileriSilJSON()' + id).done(function (data) {
+                            // loading panel bitir
+                            lpProcessing.Hide();
+
+                            if (data) {
+                                DevExpress.ui.dialog.alert(data.aciklama, data.baslik);
+                                UcretDokumu.PerformCallback();
+                            }
+                        })
+                    };
+            });
+        };
+    })
+
+    timeCountDown(FormIsBilgileri.GetItemByName('grpIsBilgileri'), '@deadline');
+
+    function timeCountDown(o, s) {
+
+        function convertToTime(sec) {
+            var sec_num = parseInt(sec, 10); // don't forget the second param
+            var hours = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours < 10) { hours = "0" + hours; }
+            if (minutes < 10) { minutes = "0" + minutes; }
+            if (seconds < 10) { seconds = "0" + seconds; }
+            return hours + ' st : ' + minutes + ' dk : ' + seconds + ' sn';
+        }
+
+        var seconds = s.replace(',', '.');
+
+        var secondsString = '' + seconds + '';
+
+        setInterval(function () {
+            seconds -= 1;
+            secondsString = '' + seconds + '';
+            o.SetCaption( 'Is Bilgileri | ' + convertToTime(secondsString) + ' sonra giris biletinin omru tukenecek');
+
+        }, 1000);
+    }
+
+</script>

@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Main";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.GridView }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+    new Script { ExtensionType = ExtensionType.GridView }
+        )
+}
+
+<div style="width: 100%; overflow: hidden; margin:5px; padding: 5px;">
+    <div style="float: left; padding: 5px;">
+        <h3>Iller</h3>
+        <form>
+            @Html.Action("GridViewPartialIl")
+        </form>
+    </div>
+    <div style="float: left; padding: 5px;">
+        <h3>Ilceler</h3>
+        <form>
+            @Html.Action("GridViewPartialIlce")
+        </form>
+    </div>
+    <div style="float: left; padding: 5px;">
+        <h3>Koyler ve Mahalleler</h3>
+        <form>
+            @Html.Action("GridViewPartialKoyMahalle")
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var ilceId;
+
+        onRowClickGridViewIlce = function (s, e) {
+
+            var grid = MVCxClientGridView.Cast(s);
+            var key = grid.GetRowKey(e.visibleIndex);
+
+            ilceId = key;
+            GridViewKoyMahalle.PerformCallback();
+
+            //console.log(key);
+
+            //grid.GetRowValues(
+            //    e.visibleIndex,
+            //    "id",
+            //    function (value) {
+            //        console.log('ilceId > ' + value);
+            //        //isId = value;
+            //        GridViewKoyMahalle.PerformCallback();
+            //    });
+        }
+
+        onBeginCallbackGridViewKoyMahalle = function (s, e) {
+
+            e.customArgs["id"] = ilceId;
+
+        }
+    })
+
+</script>

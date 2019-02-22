@@ -1,0 +1,58 @@
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewRoles";
+        settings.CallbackRouteValues = new { Controller = "Main", Action = "GridViewPartialRoles" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Main", Action = "GridViewPartialRolesAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Main", Action = "GridViewPartialRolesUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Main", Action = "GridViewPartialRolesDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(600);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.KeyFieldName = "Id";
+
+        settings.Columns.Add("Name").Width = System.Web.UI.WebControls.Unit.Pixel(120); ;
+
+        settings.Columns.Add(column => {
+            column.EditFormSettings.Visible = DefaultBoolean.False;
+            column.Width = System.Web.UI.WebControls.Unit.Pixel(400);
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.RenderPartial("_PartialRoldekiKullanicilar", c.KeyValue);
+            });
+        });
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+        };
+
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

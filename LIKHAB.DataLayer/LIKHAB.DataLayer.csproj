@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D1424E56-FF31-40C0-B8E2-6774E85DA8BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LIKHAB.DataLayer</RootNamespace>
+    <AssemblyName>LIKHAB.DataLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.2\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.2\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configurations\LogConfiguration.cs" />
+    <Compile Include="Configurations\BankaBilgileriConfiguration.cs" />
+    <Compile Include="Configurations\EmailKayitlariConfiguration.cs" />
+    <Compile Include="Configurations\IlceConfiguration.cs" />
+    <Compile Include="Configurations\IliConfiguration.cs" />
+    <Compile Include="Configurations\IsAsamalariConfiguration.cs" />
+    <Compile Include="Configurations\IsBilgileriConfiguration.cs" />
+    <Compile Include="Configurations\IsinCinsiConfiguration.cs" />
+    <Compile Include="Configurations\IslerConfiguration.cs" />
+    <Compile Include="Configurations\IsParametreleriConfiguration.cs" />
+    <Compile Include="Configurations\IsTurleriConfiguration.cs" />
+    <Compile Include="Configurations\KoyMahalleConfiguration.cs" />
+    <Compile Include="Configurations\LisansliBuroBilgileriConfiguration.cs" />
+    <Compile Include="Configurations\MusteriConfiguration.cs" />
+    <Compile Include="Configurations\MusteriTemsilDurumuConfiguration.cs" />
+    <Compile Include="Configurations\OnaylarConfiguration.cs" />
+    <Compile Include="Configurations\OnayTuruConfiguration.cs" />
+    <Compile Include="Configurations\OnayVerecekKisiConfiguration.cs" />
+    <Compile Include="Configurations\RandevuConfiguration.cs" />
+    <Compile Include="Configurations\RandevuIlkHaliConfiguration.cs" />
+    <Compile Include="Configurations\UcretAyarlariConfiguration.cs" />
+    <Compile Include="Configurations\UcretDokumuConfiguration.cs" />
+    <Compile Include="Configurations\ViewFenKayitSonrakiNumaraConfiguration.cs" />
+    <Compile Include="Configurations\ViewIsAsamalariConfiguration.cs" />
+    <Compile Include="Configurations\ViewIsinKucukDetayiConfiguration.cs" />
+    <Compile Include="Configurations\ViewRandevuGenelOnayDurumuConfiguration.cs" />
+    <Compile Include="Configurations\ViewRandevularIsBilgisiOlmayanConfiguration.cs" />
+    <Compile Include="Configurations\ViewRandevuOnayDurumuConfiguration.cs" />
+    <Compile Include="Configurations\ViewRandevuTalebiReportDetailConfiguration.cs" />
+    <Compile Include="Configurations\ViewRaporSozlesmeConfiguration.cs" />
+    <Compile Include="Configurations\ViewTeslimSenediConfiguration.cs" />
+    <Compile Include="Configurations\YillarConfiguration.cs" />
+    <Compile Include="Configuration\ApplicationRoleManager.cs" />
+    <Compile Include="Configuration\ApplicationSignInManager.cs" />
+    <Compile Include="Configuration\ApplicationUserManager.cs" />
+    <Compile Include="Configuration\EmailService.cs" />
+    <Compile Include="Configuration\SmsService.cs" />
+    <Compile Include="DBContext\ApplicationDbContext.cs" />
+    <Compile Include="DBContext\LikhabDBContext.cs" />
+    <Compile Include="Interface\IIlce.cs" />
+    <Compile Include="Interface\IIli.cs" />
+    <Compile Include="Interface\IIsAsamalari.cs" />
+    <Compile Include="Interface\IIsBilgileri.cs" />
+    <Compile Include="Interface\IIsler.cs" />
+    <Compile Include="Interface\IIsParametreleri.cs" />
+    <Compile Include="Interface\IKoyMahalle.cs" />
+    <Compile Include="Interface\IMusteri.cs" />
+    <Compile Include="Interface\IRandevu.cs" />
+    <Compile Include="Interface\IUcretAyarlari.cs" />
+    <Compile Include="Migrations\201901160038280_init.cs" />
+    <Compile Include="Migrations\201901160038280_init.Designer.cs">
+      <DependentUpon>201901160038280_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901162302063_addLog.cs" />
+    <Compile Include="Migrations\201901162302063_addLog.Designer.cs">
+      <DependentUpon>201901162302063_addLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901162327548_addViews.cs" />
+    <Compile Include="Migrations\201901162327548_addViews.Designer.cs">
+      <DependentUpon>201901162327548_addViews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\BankaBilgileri.cs" />
+    <Compile Include="Models\EmailKayitlari.cs" />
+    <Compile Include="Models\Ilce.cs" />
+    <Compile Include="Models\Ili.cs" />
+    <Compile Include="Models\IsAsamalari.cs" />
+    <Compile Include="Models\IsBilgileri.cs" />
+    <Compile Include="Models\IsinCinsi.cs" />
+    <Compile Include="Models\Isler.cs" />
+    <Compile Include="Models\IsParametreleri.cs" />
+    <Compile Include="Models\IsTurleri.cs" />
+    <Compile Include="Models\KoyMahalle.cs" />
+    <Compile Include="Models\LisansliBuroBilgileri.cs" />
+    <Compile Include="Models\Log.cs" />
+    <Compile Include="Models\Musteri.cs" />
+    <Compile Include="Models\MusteriTemsilDurumu.cs" />
+    <Compile Include="Models\Onaylar.cs" />
+    <Compile Include="Models\OnayTuru.cs" />
+    <Compile Include="Models\OnayVerecekKisi.cs" />
+    <Compile Include="Models\Randevu.cs" />
+    <Compile Include="Models\RandevuIlkHali.cs" />
+    <Compile Include="Models\UcretAyarlari.cs" />
+    <Compile Include="Models\UcretDokumu.cs" />
+    <Compile Include="Models\ViewFenKayitSonrakiNumara.cs" />
+    <Compile Include="Models\ViewIsAsamalari.cs" />
+    <Compile Include="Models\ViewIsinKucukDetayi.cs" />
+    <Compile Include="Models\ViewRandevuGenelOnayDurumu.cs" />
+    <Compile Include="Models\ViewRandevularIsBilgisiOlmayan.cs" />
+    <Compile Include="Models\ViewRandevuOnayDurumu.cs" />
+    <Compile Include="Models\ViewRandevuTalebiReportDetail.cs" />
+    <Compile Include="Models\ViewRaporSozlesme.cs" />
+    <Compile Include="Models\ViewTeslimSenedi.cs" />
+    <Compile Include="Models\Yillar.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="POCO\EF.Reverse.POCO.Core.ttinclude" />
+    <None Include="POCO\EF.Reverse.POCO.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="POCO\DatabaseKitaplar.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DatabaseKitaplar.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LIKHAB.Common\LIKHAB.Common.csproj">
+      <Project>{0F1A3574-A6EC-4A1A-9D2B-60314B811FD6}</Project>
+      <Name>LIKHAB.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901160038280_init.resx">
+      <DependentUpon>201901160038280_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901162302063_addLog.resx">
+      <DependentUpon>201901162302063_addLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901162327548_addViews.resx">
+      <DependentUpon>201901162327548_addViews.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

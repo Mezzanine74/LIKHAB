@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.EntityFramework;
+@using Microsoft.AspNet.Identity.Owin;
+
+
+@{ var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewMusteri";
+        settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteri" };
+        settings.SettingsLoadingPanel.Mode = GridViewLoadingPanelMode.Default;
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        bool userInAktifRole = HelperClasses.UserInfo.getIfCurrentUserInRole(HelperClasses.RoleNames.Aktif);
+
+        settings.CommandColumn.Visible = userInAktifRole;
+        settings.CommandColumn.ShowNewButton = userInAktifRole;
+        settings.CommandColumn.ShowDeleteButton = userInAktifRole;
+        settings.CommandColumn.ShowEditButton = userInAktifRole;
+
+        settings.KeyFieldName = "id";
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(1000);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.SettingsSearchPanel.Visible = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add("AdiSoyadi");
+        settings.Columns.Add("TCkimlik_VergiNo");
+        settings.Columns.Add("VergiDairesi");
+        settings.Columns.Add("Telefon1");
+        settings.Columns.Add("Telefon2");
+        settings.Columns.Add("Faks");
+        settings.Columns.Add("Eposta");
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "TemsilDurumu";
+            column.Caption = "Temsil Durumu";
+            column.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "Tanim";
+                p.ValueField = "id";
+
+                p.ValueType = typeof(int);
+                p.DataSource = ViewBag.TemsilDurumu;
+            });
+        });
+        settings.Columns.Add("Adress");
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+        };
+
+    });
+
+    if (ViewData["EditError"] != null) {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    };
+}
+@grid.Bind(Model).GetHtml()

@@ -1,0 +1,15 @@
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB._GenericRepository.dll.config
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB._GenericRepository.dll
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB._GenericRepository.pdb
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\EntityFramework.dll
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB.Common.dll
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB.Common.pdb
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\EntityFramework.xml
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\obj\Debug\LIKHAB._GenericRepository.csprojAssemblyReference.cache
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\obj\Debug\LIKHAB._GenericRepository.csproj.CoreCompileInputs.cache
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\obj\Debug\LIKHAB._GenericRepository.csproj.CopyComplete
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\obj\Debug\LIKHAB._GenericRepository.dll
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\obj\Debug\LIKHAB._GenericRepository.pdb
+C:\Users\USER\source\repos\LIKHAB\LIKHAB._GenericRepository\bin\Debug\LIKHAB.Common.dll.config

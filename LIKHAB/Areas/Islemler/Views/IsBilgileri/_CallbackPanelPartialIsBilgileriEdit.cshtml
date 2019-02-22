@@ -1,0 +1,223 @@
+@model LIKHAB.Areas.Islemler.ViewModels.IsBilgileriEditViewModel
+
+@Html.DevExpress().CallbackPanel(settings => {
+    settings.Name = "CallbackPanelIsBilgileriEdit";
+    settings.CallbackRouteValues = new { Controller = "IsBilgileri", Action = "CallbackPanelPartialIsBilgileriEdit" };
+
+    //settings.Images.LoadingPanel.
+    settings.SettingsLoadingPanel.Enabled = true;
+    settings.SettingsLoadingPanel.ImagePosition = ImagePosition.Top;
+
+    settings.ClientVisible = false;
+    settings.ClientSideEvents.EndCallback = "function(){ idEdit.GetValue() ? CallbackPanelIsBilgileriEdit.SetVisible(true) : CallbackPanelIsBilgileriEdit.SetVisible(false) }";
+
+    settings.Width = 500;
+    settings.Height = 300;
+
+    settings.SetContent(() => {
+
+        @Html.DevExpress().FormLayout(frmsettings =>
+        {
+            frmsettings.Name = "FormLayoutIsBilgilerEdit";
+
+            frmsettings.ColCount = 1;
+
+            frmsettings.Items.AddGroupItem(setting =>
+            {
+                setting.GroupBoxDecoration = GroupBoxDecoration.Box;
+                setting.ShowCaption = DefaultBoolean.False;
+                setting.ColSpan = 1;
+                setting.ColCount = 1;
+
+                setting.Items.Add(m => m.id, s => { s.ClientVisible = false; }).Name = "idEdit";
+                setting.Items.Add(m => m.Is, s => { s.ClientVisible = false; }).Name = "IsEdit";
+
+                setting.Items.Add(m => m.FenKayitNo, i => { i.NestedExtensionSettings.Enabled = false; });
+
+                setting.Items.Add(m => m.FenKayitTarihi, i => {
+                    i.Caption = "FenKayitTarihi";
+                    i.NestedExtension().DateEdit(tb =>
+                    {
+                        tb.Name = "FenKayitTarihi";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.AdaNo, item =>
+                {
+                    item.Caption = "AdaNo";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "AdaNo";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.ParselNo, item =>
+                {
+                    item.Caption = "ParselNo";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "ParselNo";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.IsinTuru, item =>
+                {
+                    item.Caption = "IsinTuru";
+                    item.NestedExtension().ComboBox(cb =>
+                    {
+                        cb.Name = "IsinTuru";
+                        cb.Properties.TextField = "Tanim";
+                        cb.Properties.ValueField = "id";
+                        cb.Properties.ValueType = typeof(Int32);
+                        cb.Properties.DataSource = ViewBag.IsinTuru;
+                        cb.Properties.ClientSideEvents.SelectedIndexChanged = "function(s,e){onControlChanged(s,e);}";
+
+                        //rbl.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e){ hesapSonucunuYazdir(); }"; // Eger burada ValuChanged kullanilirsa validation False veriyor
+
+                        //tb.Name = "IsinTuru";
+                        //tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Yuzolcumu, item =>
+                {
+                    item.Caption = "Yuzolcumu";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Yuzolcumu";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.PaftaNo, item =>
+                {
+                    item.Caption = "PaftaNo";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "PaftaNo";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Maliki, item => {
+                    item.Caption = "Maliki";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Maliki";
+                        tb.Properties.ClientSideEvents.GotFocus = "function(s, e){ onMalikiGotFocused(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.IsSahibi, item =>
+                {
+                    item.Caption = "IsSahibi";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "IsSahibi";
+                        tb.Properties.ClientSideEvents.GotFocus = "function(s, e){ onIsSahibiGotFocused(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Telefon1, item =>
+                {
+                    item.Caption = "Telefon1";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Telefon1";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Telefon2, item =>
+                {
+                    item.Caption = "Telefon2";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Telefon2";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Cinsi, item =>
+                {
+                    item.Caption = "Cinsi";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Cinsi";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Ilgilenen, item =>
+                {
+                    item.Caption = "Ilgilenen";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Ilgilenen";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Notlar, item =>
+                {
+                    item.Caption = "Notlar";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Notlar";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.FaturaNo, item =>
+                {
+                    item.Caption = "FaturaNo";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "FaturaNo";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.UcretToplam, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.Ili, i => { i.NestedExtensionSettings.Enabled = false; });
+
+                setting.Items.Add(m => m.Ilcesi, item =>
+                {
+                    item.Caption = "Ilcesi";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "Ilcesi";
+                        tb.Properties.ClientSideEvents.GotFocus = "function(s, e){ onIlcesiGotFocus(s, e) }";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.KoyMahalle, item =>
+                {
+                    item.Caption = "KoyMahalle";
+                    item.NestedExtension().TextBox(tb =>
+                    {
+                        tb.Name = "KoyMahalle";
+                        tb.Properties.ClientSideEvents.GotFocus = "function(s, e){ onKoyMahalleGotFocus(s, e) }";
+                        tb.Properties.ClientSideEvents.ValueChanged = "function(s, e){ onControlChanged(s, e) }";
+                    });
+                });
+
+                setting.Items.Add(m => m.Enlem, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.Boylam, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.Katsayi, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.Yol, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.FaturaAlinanNetUcret, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.TahsilatUcreti, i => { i.NestedExtensionSettings.Enabled = false; });
+                setting.Items.Add(m => m.Stopaj, i => { i.ClientVisible = false; });
+                setting.Items.Add(m => m.IlcesiId, i => { i.ClientVisible = false; });
+                setting.Items.Add(m => m.KoyMahalleId, i => { i.ClientVisible = false; });
+            });
+
+        }).Bind(Model).GetHtml();
+
+    });
+}).GetHtml()

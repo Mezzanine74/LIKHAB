@@ -1,0 +1,173 @@
+@using LIKHAB.Areas.Islemler.Controllers;
+
+@{
+    int idOnaylanan = 0;
+    try
+    {
+        idOnaylanan = (int)Session["idOnaylanan"];
+    }
+    catch (Exception)
+    {
+
+    }
+
+    var scheduler = Html.DevExpress().Scheduler(settings =>
+    {
+        settings.Name = "SchedulerRandevuOnay";
+
+        settings.CallbackRouteValues = new { Controller = "Randevu", Action = "SchedulerRandevuOnayPartial" };
+        settings.EditAppointmentRouteValues = new { Controller = "Randevu", Action = "SchedulerRandevuOnayPartialEditAppointment" };
+
+
+        settings.ActiveViewType = SchedulerViewType.FullWeek;
+
+        settings.Views.DayView.Enabled = false;
+        settings.Views.WorkWeekView.Enabled = false;
+        settings.Views.FullWeekView.Enabled = true;
+        settings.Views.WeekView.Enabled = false;
+        settings.Views.MonthView.Enabled = false;
+        settings.Views.TimelineView.Enabled = false;
+        settings.Views.AgendaView.Enabled = false;
+        settings.Views.FullWeekView.ShowWorkTimeOnly = true;
+
+        settings.Storage.EnableReminders = false;
+        settings.Storage.Appointments.Assign(RandevuControllerSchedulerRandevuOnaySettings.AppointmentStorage);
+        settings.Storage.Resources.Assign(RandevuControllerSchedulerRandevuOnaySettings.ResourceStorage);
+
+        settings.ClientSideEvents.BeginCallback = "SchedulerRandevuOnayPartialBeginCallback";
+        settings.ClientSideEvents.EndCallback = "SchedulerRandevuOnayPartialEndCallback";
+        settings.ClientSideEvents.AppointmentDeleting = "SchedulerRandevuOnayAppointmentDeletingClick";
+
+        var girisControl = ViewBag.RandevuGirilebilirMi != null ? (LIKHAB.Models.helper.Randevu.RandevuGirisValidation)ViewBag.RandevuGirilebilirMi : null;
+
+        if (girisControl != null)
+        {
+            if (girisControl.hata == true)
+            {
+                settings.OptionsCustomization.AllowAppointmentCreate = UsedAppointmentType.None;
+            } else
+            {
+                settings.OptionsCustomization.AllowAppointmentCreate = UsedAppointmentType.All;
+            }
+        } else
+        {
+            settings.OptionsCustomization.AllowAppointmentCreate = UsedAppointmentType.None;
+        }
+
+        settings.OptionsCustomization.AllowAppointmentEdit = UsedAppointmentType.Custom;
+        settings.AllowAppointmentEdit = (sender, e) =>
+        {
+
+            var randevuId = (int)e.Appointment.Id;
+
+
+            JSONController controller = new JSONController();
+            var a = controller.RandevuOnayValidate(randevuId);
+
+            if (a.hata)
+            {
+                e.Allow = false;
+                return;
+            }
+
+        };
+
+        settings.OptionsCustomization.AllowAppointmentDelete = UsedAppointmentType.Custom;
+        settings.AllowAppointmentDelete = (sender, e) =>
+        {
+            var randevuId = (int)e.Appointment.Id;
+
+            JSONController controller = new JSONController();
+            var a = controller.RandevuOnayValidate(randevuId);
+
+            if (a.hata)
+            {
+                e.Allow = false;
+                return;
+            }
+
+        };
+
+        settings.AppointmentFormShowing = (sender, e) =>
+        {
+            var sch = sender as MVCxScheduler;
+            if (sch != null)
+                e.Container = new RandevuControllerSchedulerRandevuOnaySettings.CustomAppointmentTemplateContainer(sch);
+        };
+
+        settings.PopupMenuShowing = (s, e) =>
+        {
+            if (e.Menu.MenuId == SchedulerMenuItemId.AppointmentMenu)
+            {
+                DevExpress.Web.MenuItem statusMenu = e.Menu.Items.FindByName(SchedulerMenuItemId.StatusSubMenu.ToString());
+                if (statusMenu != null) statusMenu.Visible = false;
+
+                DevExpress.Web.MenuItem labelMenu = e.Menu.Items.FindByName(SchedulerMenuItemId.LabelSubMenu.ToString());
+
+                for (int i = 0; i < labelMenu.Items.Count(); i++)
+                {
+                    labelMenu.Items[i].ClientEnabled = false;
+                }
+            }
+
+            // Create validation
+            if (girisControl != null)
+            {
+                if (girisControl.hata == true)
+                {
+                    if (e.Menu.MenuId != SchedulerMenuItemId.AppointmentMenu)
+                    {
+                        // mesaj yaz
+                        var mesaj = e.Menu.Items[0];
+                        mesaj.Text = girisControl.hataMesaji;
+                        e.Menu.Items.Clear();
+                        e.Menu.Items.Insert(0, mesaj);
+
+                    }
+
+                }
+            }
+
+        };
+
+        settings.OptionsForms.SetAppointmentFormTemplateContent(c =>
+        {
+            var container = (RandevuControllerSchedulerRandevuOnaySettings.CustomAppointmentTemplateContainer)c;
+            LIKHAB.Models.db.Randevu modelAppointment = new LIKHAB.Models.db.Randevu()
+            {
+                id = container.Appointment.Id == null ? -1 : (int)container.Appointment.Id,
+                Subject = container.Appointment.Subject,
+                Location = container.Appointment.Location,
+                StartDate = container.Appointment.Start,
+                EndDate = container.Appointment.End,
+                AllDay = container.Appointment.AllDay,
+                Description = container.Appointment.Description,
+                Type = (int)container.Appointment.Type,
+                Status = (int?)container.Appointment.StatusKey,
+                Label = (int?)container.Appointment.LabelKey,
+            };
+
+            ViewBag.DeleteButtonEnabled = container.CanDeleteAppointment;
+
+            (container.ResourceDataSource as ListEditItemCollection).RemoveAt(0);
+            ViewBag.ResourceDataSource = container.ResourceDataSource;
+            ViewBag.StatusDataSource = container.StatusDataSource;
+            ViewBag.LabelDataSource = container.LabelDataSource;
+            Html.RenderPartial("_SchedulerRandevuOnayCustomFormPartial", modelAppointment);
+        });
+
+        settings.ClientSideEvents.ToolTipDisplaying = "function(s, e){OnToolTipDisplaying(s, e);}";
+
+        settings.OptionsToolTips.SetAppointmentToolTipTemplateContent(() =>
+        {
+            Html.RenderPartial("_CustomAppointmentToolTip");
+        });
+
+
+    });
+    if (ViewData["SchedulerErrorText"] != null)
+    {
+        scheduler.SetErrorText((string)ViewData["SchedulerErrorText"]);
+    }
+}
+@scheduler.Bind(ViewData["Appointments"], ViewData["Resources"]).GetHtml()

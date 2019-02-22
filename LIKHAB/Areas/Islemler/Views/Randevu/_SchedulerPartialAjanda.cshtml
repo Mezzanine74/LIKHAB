@@ -1,0 +1,54 @@
+@using LIKHAB.Areas.Islemler.Controllers;
+
+@{
+
+    var scheduler = Html.DevExpress().Scheduler(settings =>
+    {
+        settings.Name = "SchedulerAjanda";
+
+        settings.CallbackRouteValues = new { Controller = "Randevu", Action = "SchedulerPartialAjanda" };
+
+        settings.ActiveViewType = SchedulerViewType.FullWeek;
+
+        settings.Views.DayView.Enabled = false;
+        settings.Views.WorkWeekView.Enabled = false;
+        settings.Views.FullWeekView.Enabled = true;
+        settings.Views.WeekView.Enabled = false;
+        settings.Views.MonthView.Enabled = false;
+        settings.Views.TimelineView.Enabled = false;
+        settings.Views.AgendaView.Enabled = false;
+        settings.Views.FullWeekView.ShowWorkTimeOnly = true;
+
+        settings.Storage.EnableReminders = false;
+        settings.Storage.Appointments.Assign(RandevuControllerSchedulerAjandaSettings.AppointmentStorage);
+        settings.Storage.Resources.Assign(RandevuControllerSchedulerAjandaSettings.ResourceStorage);
+
+        settings.OptionsCustomization.AllowAppointmentCreate = UsedAppointmentType.None;
+
+        settings.OptionsCustomization.AllowAppointmentEdit = UsedAppointmentType.None;
+
+        settings.OptionsCustomization.AllowAppointmentDelete = UsedAppointmentType.None;
+
+        settings.PopupMenuShowing = (sched, evargs) =>
+        {
+            if (evargs.Menu.MenuId == SchedulerMenuItemId.AppointmentMenu)
+            {
+                DevExpress.Web.MenuItem statusMenu = evargs.Menu.Items.FindByName(SchedulerMenuItemId.StatusSubMenu.ToString());
+                if (statusMenu != null) statusMenu.Visible = false;
+
+                DevExpress.Web.MenuItem labelMenu = evargs.Menu.Items.FindByName(SchedulerMenuItemId.LabelSubMenu.ToString());
+
+                for (int i = 0; i < labelMenu.Items.Count(); i++)
+                {
+                    labelMenu.Items[i].ClientEnabled = false;
+                }
+            }
+        };
+
+    });
+    if (ViewData["SchedulerErrorText"] != null)
+    {
+        scheduler.SetErrorText((string)ViewData["SchedulerErrorText"]);
+    }
+}
+@scheduler.Bind(ViewData["Appointments"], ViewData["Resources"]).GetHtml()

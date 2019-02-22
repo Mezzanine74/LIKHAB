@@ -1,0 +1,104 @@
+﻿
+<script type="text/javascript">
+    $(function () {
+        OnAppointmentTipDisplaying = function (s, e) {
+            var currentApt = GetCurrentApt();
+
+            console.log('current id > ' + currentApt.GetId());
+
+            // randevu id validate e gider
+            $.getJSON('@LIKHAB.Codes.Helpers.HelperClasses.LocalHost.getRandevuOnayValidateJSON()' + currentApt.GetId()).done(function (data) {
+                if (data) {
+
+                    AptToolTipDelete.SetEnabled(!data.hata);
+                    AptToolTipEdit.SetEnabled(!data.hata);
+                    data.hata ? $(PanelInfo).show() : $(PanelInfo).hide();
+                    $('#lblUyari').text(data.message);
+                }
+            })
+
+            if (!currentApt.updated) {
+                SchedulerRandevuOnay.RefreshClientAppointmentProperties(currentApt, AppointmentPropertyNames.Normal, OnAppointmentRefresh);
+                SetAptToolTipSubject("Loading...");
+            } else {
+                SetAptToolTipSubject(currentApt.GetSubject());
+            }
+            var textInterval = e.toolTip.ConvertIntervalToString(currentApt.interval);
+            $('#AptToolTipInterval').html(textInterval);
+        }
+        function GetCurrentApt() {
+
+            return toolTipContext.data.GetAppointment();
+        }
+        function SetAptToolTipSubject(text) {
+            $('#AptToolTipSubject').html(ASPx.Str.EncodeHtml(text));
+        }
+        function OnAppointmentRefresh(apt) {
+            apt.updated = true;
+            SetAptToolTipSubject(apt.GetSubject());
+        }
+        OnAptToolTipDeleteClick = function (s, e) {
+            SchedulerRandevuOnay.DeleteAppointment(GetCurrentApt());
+        }
+        OnAptToolTipEditClick = function (s, e) {
+            SchedulerRandevuOnay.ShowAppointmentFormByClientId(GetCurrentApt().GetId());
+        }
+        function OnAptToolTipShowMenuClick() {
+            toolTipContext.toolTip.ShowAppointmentMenu();
+        }
+
+    })
+
+</script>
+
+@Html.DevExpress().RoundPanel(settings =>
+{
+    settings.Name = "CustomAppointmentPanel";
+    settings.Width = 250;
+    settings.SetHeaderContentTemplateContent((c) =>
+    {
+        ViewContext.Writer.Write("<span id=\"AptToolTipInterval\" class=\"toolTipLablel\"></span>");
+        ViewContext.Writer.Write("<br />");
+        ViewContext.Writer.Write("<span id=\"AptToolTipSubject\" class=\"toolTipLablel\"></span>");
+    });
+    settings.ContentPaddings.Padding = System.Web.UI.WebControls.Unit.Pixel(10); ;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div style=\"min-height: 50px;\">");
+
+        Html.DevExpress().RoundPanel(rpSettings =>
+        {
+            rpSettings.Name = "PanelInfo";
+            rpSettings.SetHeaderContentTemplateContent((c) =>
+            {
+                ViewContext.Writer.Write("<span>Uyari</span>");
+            });
+            rpSettings.ContentPaddings.Padding = System.Web.UI.WebControls.Unit.Pixel(3);
+
+            rpSettings.SetContent(() => {
+                ViewContext.Writer.Write("<span id=\"lblUyari\">Uyari</span>");
+            });
+
+        }).Render();
+
+        ViewContext.Writer.Write("</div>");
+
+        ViewContext.Writer.Write("<div style = \"padding-top:10px; text-align:center\">");
+        Html.DevExpress().Button(s =>
+        {
+            s.Name = "AptToolTipDelete";
+            s.Text = "Delete";
+            s.Width = 80;
+            s.ClientSideEvents.Click = "function(s, e){OnAptToolTipDeleteClick(s, e)}";
+        }).Render();
+        ViewContext.Writer.Write("<span style=\"padding-right: 30px;\"></span>");
+        Html.DevExpress().Button(s =>
+        {
+            s.Name = "AptToolTipEdit";
+            s.Text = "Edit";
+            s.Width = 80;
+            s.ClientSideEvents.Click = "function(s, e){OnAptToolTipEditClick(s, e)}";
+        }).Render();
+        ViewContext.Writer.Write("</div>");
+    });
+}).GetHtml()

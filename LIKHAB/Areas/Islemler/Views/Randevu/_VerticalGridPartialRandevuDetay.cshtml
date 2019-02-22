@@ -1,0 +1,19 @@
+@Html.DevExpress().VerticalGrid(settings => {
+    settings.Name = "VerticalGridRandevuDetay";
+    settings.CallbackRouteValues = new { Controller = "Randevu", Action = "VerticalGridPartialRandevuDetay" };
+
+    settings.Width = 500;
+    settings.SettingsPager.Visible = false;
+    settings.Settings.ShowHeaderFilterButton = false;
+
+    settings.Settings.HorizontalScrollBarMode = ScrollBarMode.Auto;
+
+    settings.KeyFieldName = "id";
+    settings.Rows.Add("Subject").Caption = "Konu";
+    settings.Rows.Add("Description").Caption = "Tanim";
+    settings.Rows.Add("StartDate").Caption = "Baslangic";
+    settings.Rows.Add("EndDate").Caption = "Bitis";
+    settings.Rows.Add("Location").Caption = "Yeri";
+    settings.Rows.Add("WhoCreated").Caption = "Kim Baslatti";
+    settings.Rows.Add("WhenCreated").Caption = "Ne Zaman Baslatti";
+}).Bind(Model).GetHtml()

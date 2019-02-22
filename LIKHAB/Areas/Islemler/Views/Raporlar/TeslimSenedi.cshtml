@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "TeslimSenedi";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+
+    var isId = LIKHAB.Codes.Helpers.HelperClasses.Genel.getParameterFromURL();
+    var report = new LIKHAB.Reports.Xtra_TeslimSenedi();
+    report.Parameters["ParametreIsId"].Value = isId;
+}
+
+
+@section Header{
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.WebDocumentViewer }
+    )
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.WebDocumentViewer }
+    )
+}
+
+
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewerTeslimSenedi";
+}).Bind(report).GetHtml()

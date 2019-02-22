@@ -1,0 +1,13 @@
+@Html.DevExpress().VerticalGrid(settings => {
+    settings.Name = "VerticalGridMusteriSecilen";
+    settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "VerticalGridPartialMusteriSecilen" };
+
+    settings.Width = 350;
+    settings.SettingsPager.Visible = false;
+    settings.Settings.ShowHeaderFilterButton = false;
+
+    settings.KeyFieldName = "id";
+    settings.Rows.Add("AdiSoyadi");
+    settings.Rows.Add("TCkimlik_VergiNo");
+    settings.Rows.Add("MusteriTemsilDurumu");
+}).Bind(Model).GetHtml()

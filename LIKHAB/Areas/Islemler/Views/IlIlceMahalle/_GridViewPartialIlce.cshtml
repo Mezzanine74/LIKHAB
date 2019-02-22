@@ -1,0 +1,61 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewIlce";
+        settings.CallbackRouteValues = new { Controller = "IlIlceMahalle", Action = "GridViewPartialIlce" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "IlIlceMahalle", Action = "GridViewPartialIlceAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "IlIlceMahalle", Action = "GridViewPartialIlceUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "IlIlceMahalle", Action = "GridViewPartialIlceDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = true;
+        settings.CommandColumn.ShowDeleteButton = true;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "id";
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(340);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.ClientSideEvents.RowClick = "function(s, e){onRowClickGridViewIlce(s, e)}";
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(c =>
+        {
+            c.FieldName = "ilId";
+            c.Caption = "Il";
+            c.EditorProperties().ComboBox(p =>
+            {
+                p.TextField = "Il";
+                p.ValueField = "id";
+                p.ValueType = typeof(int);
+                p.DataSource = ViewBag.Iller;
+            });
+        });
+
+        settings.Columns.Add("ilce");
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+        };
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

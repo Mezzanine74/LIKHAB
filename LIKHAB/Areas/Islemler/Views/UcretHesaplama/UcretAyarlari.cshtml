@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "UcretAyarlari";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.GridView }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.GridView }
+        )
+}
+
+<h2>UcretAyarlari</h2>
+
+<form>
+    @Html.Action("GridViewPartialUcretAyarlari")
+</form>
+
+
+

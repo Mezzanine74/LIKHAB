@@ -1,0 +1,421 @@
+﻿
+@{
+    ViewBag.Title = "Talep Takip";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.GridView },
+        new StyleSheet { ExtensionType = ExtensionType.Splitter }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.GridView },
+        new Script { ExtensionType = ExtensionType.Splitter }
+        )
+}
+
+@Html.Action("GridViewPartialIsAsamalari")
+
+<div style="padding: 5px;">
+
+    @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "btnSozlesmeRaporlari";
+                settings.Text = "Sozlesme";
+                settings.ClientVisible = false;
+                settings.Images.Image.IconID = IconID.ReportsAddfooter16x16;
+                settings.ClientSideEvents.Click = "function(s, e){ goToSozlesmeRaporu(); }";
+            }).GetHtml()
+
+    @Html.DevExpress().Button(
+            settings =>
+            {
+                settings.Name = "btnTeslimSenedi";
+                settings.Text = "Teslim Senedi";
+                settings.ClientVisible = false;
+                settings.Images.Image.IconID = IconID.ReportsAddfooter16x16;
+                settings.ClientSideEvents.Click = "function(s, e){ goToTeslimRaporu(); }";
+            }).GetHtml()
+
+</div>
+
+
+@Html.DevExpress().Splitter(settings =>
+{
+    settings.Name = "SplitterTalepTakip";
+    settings.Height = System.Web.UI.WebControls.Unit.Pixel(750);
+    settings.Width = System.Web.UI.WebControls.Unit.Pixel(1300);
+    settings.AllowResize = true;
+    settings.Panes.Add(pane =>
+    {
+        pane.Size = System.Web.UI.WebControls.Unit.Pixel(900);
+        pane.SetContent(() =>
+        {
+            ViewContext.Writer.Write(@Html.Action("GridViewPartialTalepTakip"));
+        });
+    });
+    settings.Panes.Add(pane =>
+    {
+        pane.Size = System.Web.UI.WebControls.Unit.Pixel(400);
+        pane.SetContent(() =>
+        {
+        ViewContext.Writer.Write(
+                    @Html.DevExpress().Button(btnIlcePopup =>
+                    {
+                        btnIlcePopup.Name = "btnIlcePopup";
+                        btnIlcePopup.Text = "Sube Sec";
+                        btnIlcePopup.Images.Image.IconID = IconID.AlignmentAlignverticalcenter216x16;
+                    }).GetHtml()
+                );
+        ViewContext.Writer.Write(@Html.Action("CallbackPanelPartialIsBilgileriEdit"));
+    });
+});
+}).GetHtml()
+
+
+@Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "loadingPanel";
+        settings.Modal = true;
+        settings.ContainerElementID = "GridViewIsAsamalari";
+        settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+    }).GetHtml()
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "popupIlceler";
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.Center;
+        settings.PopupVerticalAlign = PopupVerticalAlign.Middle;
+        settings.HeaderText = "Ilce Sec";
+        settings.Modal = true;
+        settings.PopupElementID = "btnIlcePopup";
+        settings.SetContent(() =>
+        {
+        ViewContext.Writer.Write(
+                    @Html.DevExpress().RadioButtonList(radioSettings =>
+                    {
+                        radioSettings.Name = "RadioButtonListIlceler";
+                        List<string> list = new List<string>();
+                        foreach (var ilce in (IEnumerable<LIKHAB.Models.db.Ilce>)ViewBag.Ilceler)
+                        {
+                                list.Add(ilce.Ilce1);
+                        }
+                        radioSettings.Properties.Items.AddRange(list);
+                        radioSettings.Properties.ClientSideEvents.SelectedIndexChanged = "function(s, e){radioButtonIlcelerSelectIndexChanged(s, e)}";
+                    }).GetHtml()
+                );
+    });
+}).GetHtml()
+
+@Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "popupIlceKoyEdit";
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.HeaderText = "Ilce ve Koy/Mahalle Sec";
+        settings.Modal = true;
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(400); 
+        //settings.PopupElementID = "btnIlcePopup";
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div style=\"width: 100 %; overflow: hidden; \" > ");
+            ViewContext.Writer.Write("<div style=\"float: left; padding: 5px; \" > ");
+            ViewContext.Writer.Write("<div id=\"inputIlceEdit\" ></div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("<div style=\"float: left; padding: 5px; \" > ");
+            ViewContext.Writer.Write("<div id=\"inputKoyMahalle\" ></div>");
+            ViewContext.Writer.Write("</div>");
+            ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml()
+
+    <form>
+        @Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "popupMalikiSec";
+        settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSecIsBilgisinde" };
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.HeaderText = "Musteri Bilgileri";
+        settings.Modal = true;
+        settings.ClientSideEvents.EndCallback = "function (s,e) { s.Show(); loadingCallbackPanelIsBilgileriEdit.Hide(); }";
+
+    }).GetHtml()
+    </form>
+
+    <form>
+        @Html.DevExpress().PopupControl(
+    settings =>
+    {
+        settings.Name = "popupMusteriSec";
+        settings.CallbackRouteValues = new { Controller = "Musteriler", Action = "GridViewPartialMusteriSec" };
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.HeaderText = "Musteri Sec";
+        settings.Modal = true;
+        settings.ClientSideEvents.EndCallback = "function (s,e) { s.Show(); loadingCallbackPanelIsBilgileriEdit.Hide(); }";
+
+    }).GetHtml()
+    </form>
+
+
+    @Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "loadingCallbackPanelIsBilgileriEdit";
+        settings.Modal = true;
+        settings.ContainerElementID = "CallbackPanelIsBilgileriEdit";
+        //settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+    }).GetHtml()
+
+    <script type="text/javascript">
+    $(function () {
+
+        var actionName, actionValue, isId = 0, ilce;
+
+        onGridViewTalepTakipRowClick = function (s, e) {
+            var grid = MVCxClientGridView.Cast(s);
+            var key = grid.GetRowKey(e.visibleIndex);
+
+            console.log('key > ' + key);
+
+            grid.GetRowValues(
+                e.visibleIndex,
+                "Is",
+                function (value) {
+                    console.log('Is > ' + value);
+                    isId = value;
+                    GridViewIsAsamalari.PerformCallback();
+                    CallbackPanelIsBilgileriEdit.PerformCallback({ isId: isId });
+                });
+        }
+
+        onGridViewTalepBeginCallback = function (s, e) {
+            e.customArgs["ilce"] = ilce;
+        }
+
+        onGridViewIsAsamalariBeginCallBack = function (s, e) {
+
+            loadingPanel.Show();
+            e.customArgs["actionName"] = actionName;
+            e.customArgs["actionValue"] = actionValue != null ? (typeof actionValue.getMonth === 'function' ? actionValue.toJSON() : actionValue) : actionValue;
+            e.customArgs["id"] = isId;
+
+            if (isId > 0) {
+                GridViewIsAsamalari.SetVisible(true);
+
+                // buttonlari goster
+                btnSozlesmeRaporlari.SetVisible(true);
+                btnTeslimSenedi.SetVisible(true);
+            }
+
+            // reset parameter
+            actionName = null; actionValue = null; id = 0;
+        }
+
+        onComboIlceTextChanged = function (s, e) {
+
+            // yukardakileri gizle
+            GridViewIsAsamalari.SetVisible(false);
+            btnSozlesmeRaporlari.SetVisible(false);
+            btnTeslimSenedi.SetVisible(false);
+
+            CallbackPanelIsBilgileriEdit.PerformCallback();
+
+            ilce = s.GetValue();
+            GridViewTalepTakip.PerformCallback();
+        }
+
+        onGridViewIsAsamalariEndCallBack = function (s, e) {
+            loadingPanel.Hide();
+            GridViewTalepTakip.PerformCallback();
+        }
+
+        onChekBoxChanged = function (s, e, p, id) {
+            // pass parameter
+            actionName = p;
+            actionValue = s.GetChecked();
+            isId = id;
+            // update
+            GridViewIsAsamalari.UpdateEdit()
+        }
+
+        onDateChanged = function (s, e, p, id) {
+            // pass parameter
+            actionName = p;
+            actionValue = s.GetValue();
+            isId = id;
+            // update
+            GridViewIsAsamalari.UpdateEdit()
+        }
+
+        goToSozlesmeRaporu = function () {
+            window.open('@LIKHAB.Codes.Helpers.HelperClasses.LocalHost.getSozlesmeRaporlariSayfasi()' + isId,'_blank');
+        }
+
+        goToTeslimRaporu = function () {
+            window.open('@LIKHAB.Codes.Helpers.HelperClasses.LocalHost.getTeslimRaporuSayfasi()' + isId,'_blank');
+        }
+
+    })
+    </script>
+
+    <script type="text/javascript">
+    $(function () {
+
+        DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+        findObjectByKey = function (array, key, value) {
+            for (var i = 0; i < array.length; i++) {
+                if (array[i][key] === value) {
+                    return array[i];
+                }
+            }
+            return null;
+        };
+
+        inputIlceEdit = $("#inputIlceEdit").dxSelectBox({
+            dataSource: '/Islemler/JSON/DDLIlcesi/1', // KAHRAMANMARAS = 1
+            searchEnabled: true,
+            searchExpr: ['Ilce1'],
+            valueExpr: 'id',
+            displayExpr: 'Ilce1',
+            onValueChanged: function (e) {
+                inputKoyMahalle.option('dataSource', '/Islemler/JSON/DDLKoyu/' + (e.value ? e.value : 0));
+                inputKoyMahalle.option('value', undefined);
+            }
+        }).dxValidator({ name: 'Ilce', validationRules: [{ type: 'required', message: 'Ilce secili olmali' }] }).dxSelectBox('instance');
+
+        inputKoyMahalle = $("#inputKoyMahalle").dxSelectBox({
+            dataSource: '/Islemler/JSON/DDLKoyu/' + inputIlceEdit.option('value'),
+            searchEnabled: true,
+            searchExpr: ['Koy_Mahalle1'],
+            valueExpr: 'id',
+            displayExpr: 'Koy_Mahalle1',
+            onValueChanged: function (e) {
+                if (e.value) {
+                    KoyMahalleId.SetValue(e.value);
+                    onControlChanged(KoyMahalleId, null);
+                };
+
+            },
+        }).dxValidator({ name: 'Koy/Mahalle', validationRules: [{ type: 'required', message: 'Koy/Mahalle secili olmali' }] }).dxSelectBox('instance');
+
+        onIlcesiGotFocus = function (s, e) {
+            popupIlceKoyEdit.Show();
+            inputIlceEdit.option('value', IlcesiId.GetValue());
+            inputKoyMahalle.option('value', KoyMahalleId.GetValue());
+        }
+
+        onKoyMahalleGotFocus = function (s, e) {
+            popupIlceKoyEdit.Show();
+            inputIlceEdit.option('value', IlcesiId.GetValue());
+            inputKoyMahalle.option('value', KoyMahalleId.GetValue());
+        }
+
+        onGridViewPartialMusteriSecIsBilgisindeMusteriSecBtnClick = function (s, e, index) {
+            GridViewMusteriSecIsBilgisiSayfasinda.GetRowValues(
+                index,
+                "AdiSoyadi",
+                function (value) {
+                    popupMalikiSec.Hide();
+                    Maliki.SetValue(value);
+                    onControlChanged(Maliki, null);
+                });
+        }
+
+        GridViewMusteriSecBtnClick = function(index) {
+
+            GridViewMusteriSec.GetRowValues(
+                index,
+                "AdiSoyadi",
+                function (value) {
+                    popupMusteriSec.Hide();
+                    IsSahibi.SetValue(value);
+                    onControlChanged(IsSahibi, null);
+                });
+        }
+
+        OnGridViewMusteriSecBeginCallBack = function (s, e) {
+            ////e.customArgs["stopaj"] = Stopaj.GetChecked();
+            // Buna gerek yok cunku popupMusteriSec.PerformCallback({ stopaj: Stopaj.GetChecked() }); bu isi yapiyor
+        };
+
+        onMalikiGotFocused = function (s, e) {
+            popupMalikiSec.PerformCallback();
+            loadingCallbackPanelIsBilgileriEdit.Show();
+        }
+
+        onIsSahibiGotFocused = function (s, e) {
+            //popupMusteriSec.PerformCallback();
+            popupMusteriSec.PerformCallback({ stopaj: Stopaj.GetChecked() });
+            loadingCallbackPanelIsBilgileriEdit.Show();
+        }
+
+        radioButtonIlcelerSelectIndexChanged = function (s, e) {
+            console.log(s.GetValue());
+
+            comboIlcesiFilter.SetValue(s.GetValue())
+            onComboIlceTextChanged(comboIlcesiFilter, null)
+            popupIlceler.Hide();
+
+        }
+
+        onControlChanged = function (s, e) {
+
+            performAjax();
+
+        }
+
+        getInput = function () {
+            return {
+                id: idEdit.GetValue(),
+                Is: IsEdit.GetValue(),
+                FenKayitTarihi: FenKayitTarihi.GetValue(),
+                AdaNo: AdaNo.GetValue(),
+                ParselNo: ParselNo.GetValue(),
+                Yuzolcumu: Yuzolcumu.GetValue(),
+                PaftaNo: PaftaNo.GetValue(),
+                Maliki: Maliki.GetValue(),
+                IsSahibi: IsSahibi.GetValue(),
+                Telefon1: Telefon1.GetValue(),
+                Telefon2: Telefon2.GetValue(),
+                Cinsi: Cinsi.GetValue(),
+                IsinTuru: IsinTuru.GetValue(),
+                Ilgilenen: Ilgilenen.GetValue(),
+                Notlar: Notlar.GetValue(),
+                FaturaNo: FaturaNo.GetValue(),
+                Ilcesi: Ilcesi.GetValue(),
+                KoyMahalle: KoyMahalle.GetValue(),
+                IlcesiId: IlcesiId.GetValue(),
+                KoyMahalleId: KoyMahalleId.GetValue()
+                };
+        }
+
+        performAjax = function () {
+            $.ajax({
+                url: '@LIKHAB.Codes.Helpers.HelperClasses.LocalHost.getIsBilgileriEditPost()',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(getInput()),
+                success: function (result) {
+                    //DevExpress.ui.notify("Guncellendi");
+                },
+                fail: function () {
+                    DevExpress.ui.dialog.alert('Bir hata olustu!', 'Hata');
+                },
+                complete: function () {
+                    CallbackPanelIsBilgileriEdit.PerformCallback({ isId: IsEdit.GetValue() });
+                }
+            })
+        };
+
+    })
+    </script>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<LIKHAB.Models.db.Musteri>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+
+}
+
+
+<h2>Index</h2>
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.GridView },
+        new StyleSheet { ExtensionType = ExtensionType.PopupControl }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+    new Script { ExtensionType = ExtensionType.GridView },
+        new Script { ExtensionType = ExtensionType.PopupControl }
+        )
+}
+
+<form>
+    @Html.Action("GridViewPartialMusteri")
+</form>
+
+
+

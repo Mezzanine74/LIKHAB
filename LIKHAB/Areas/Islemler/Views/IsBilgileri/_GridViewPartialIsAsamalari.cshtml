@@ -1,0 +1,426 @@
+@using LIKHAB.Areas.Islemler.Controllers
+
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewIsAsamalari";
+        settings.CallbackRouteValues = new { Controller = "IsBilgileri", Action = "GridViewPartialIsAsamalari" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "IsBilgileri", Action = "GridViewPartialIsAsamalariAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "IsBilgileri", Action = "GridViewPartialIsAsamalariUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "IsBilgileri", Action = "GridViewPartialIsAsamalariDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.ClientSideEvents.BeginCallback = "function(s, e){onGridViewIsAsamalariBeginCallBack(s, e)}";
+        settings.ClientSideEvents.EndCallback = "function(s, e){onGridViewIsAsamalariEndCallBack(s, e)}";
+
+        settings.Settings.ShowColumnHeaders = false;
+
+        settings.DataBound = (sender, e) =>
+        {
+            MVCxGridView gv = sender as MVCxGridView;
+            gv.ClientVisible = (gv.VisibleRowCount > 0);
+        };
+
+        settings.CommandColumn.Visible = false;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = false;
+
+        settings.KeyFieldName = "id";
+
+        settings.SettingsPager.Visible = false;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Fatura";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "Fatura";
+                    cb.Name = "cbFatura" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "Fatura");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '"+ IsAsamalariParametreleri.Fatura.ToString() +"', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateFatura" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "FaturaWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.FaturaWhen.ToString() + "', "+ DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Randevu";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Enabled = false;
+                    cb.Text = "Randevu";
+                    cb.Name = "cbRandevu" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "Randevu");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.Randevu.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Enabled = false;
+                    cb.Name = "dateRandevu" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "RandevuWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.RandevuWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("Olcum");
+        //settings.Columns.Add("OlcumWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Olcum";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "Olcum";
+                    cb.Name = "cbOlcum" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "Olcum");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.Olcum.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateOlcum" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "OlcumWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.OlcumWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("Kontrol");
+        //settings.Columns.Add("KontrolWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "Kontrol";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "Kontrol";
+                    cb.Name = "cbKontrol" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "Kontrol");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.Kontrol.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateKontrol" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "KontrolWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.KontrolWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+
+        //settings.Columns.Add("BeldEvrGeldi");
+        //settings.Columns.Add("BeldEvrGeldiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "BeldEvrGeldi";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "BeldEvrGeldi";
+                    cb.Name = "cbBeldEvrGeldi" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "BeldEvrGeldi");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.BeldEvrGeldi.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateBeldEvrGeldi" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "BeldEvrGeldiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.BeldEvrGeldiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("BeldEvrGitti");
+        //settings.Columns.Add("BeldEvrGittiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "BeldEvrGitti";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "BeldEvrGitti";
+                    cb.Name = "cbBeldEvrGitti" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "BeldEvrGitti");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.BeldEvrGitti.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateBeldEvrGitti" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "BeldEvrGittiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.BeldEvrGittiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("KadEvrGeldi");
+        //settings.Columns.Add("KadEvrGeldiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "KadEvrGeldi";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "KadEvrGeldi";
+                    cb.Name = "cbKadEvrGeldi" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "KadEvrGeldi");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.KadEvrGeldi.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateKadEvrGeldi" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "KadEvrGeldiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.KadEvrGeldiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+
+        //settings.Columns.Add("KadEvrGitti");
+        //settings.Columns.Add("KadEvrGittiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "KadEvrGitti";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "KadEvrGitti";
+                    cb.Name = "cbKadEvrGitti" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "KadEvrGitti");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.KadEvrGitti.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateKadEvrGitti" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "KadEvrGittiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.KadEvrGittiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("ProjeYapildi");
+        //settings.Columns.Add("ProjeYapildiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "ProjeYapildi";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "ProjeYapildi";
+                    cb.Name = "cbProjeYapildi" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "ProjeYapildi");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.ProjeYapildi.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateProjeYapildi" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "ProjeYapildiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.ProjeYapildiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("OdemeAlindi");
+        //settings.Columns.Add("OdemeAlindiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "OdemeAlindi";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "OdemeAlindi";
+                    cb.Name = "cbOdemeAlindi" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "OdemeAlindi");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.OdemeAlindi.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateOdemeAlindi" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "OdemeAlindiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.OdemeAlindiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        //settings.Columns.Add("IsKapandi");
+        //settings.Columns.Add("IsKapandiWhen");
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "IsKapandi";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "IsKapandi";
+                    cb.Name = "cbIsKapandi" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "IsKapandi");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.IsKapandi.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateIsKapandi" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "IsKapandiWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.IsKapandiWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "MusteriyiBilgilendir";
+            column.SetDataItemTemplateContent(c =>
+            {
+                Html.DevExpress().CheckBox(cb =>
+                {
+                    cb.Text = "Musteriyi Bilgilendir";
+                    cb.Name = "cbMusteriyiBilgilendir" + c.VisibleIndex.ToString();
+                    cb.Checked = (bool)DataBinder.Eval(c.DataItem, "MusteriyiBilgilendir");
+                    cb.Properties.ClientSideEvents.CheckedChanged = "function(s, e){onChekBoxChanged(s, e, '" + IsAsamalariParametreleri.MusteriyiBilgilendir.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + " )}";
+                }).GetHtml();
+
+                Html.DevExpress().DateEdit(cb =>
+                {
+                    cb.Name = "dateMusteriyiBilgilendir" + c.VisibleIndex.ToString();
+                    cb.Width = 100;
+
+                    var a = DataBinder.Eval(c.DataItem, "MusteriyiBilgilendirWhen");
+
+                    if (a != null) { cb.Date = (DateTime)a; }
+
+                    cb.Properties.ClientSideEvents.DateChanged = "function(s, e){onDateChanged(s, e, '" + IsAsamalariParametreleri.MusteriyiBilgilendirWhen.ToString() + "', " + DataBinder.Eval(c.DataItem, "isId") + ")}";
+                }).GetHtml();
+
+            });
+
+        });
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

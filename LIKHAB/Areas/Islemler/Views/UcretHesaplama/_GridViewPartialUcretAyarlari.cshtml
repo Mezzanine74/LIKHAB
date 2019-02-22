@@ -1,0 +1,80 @@
+@{
+    var grid = Html.DevExpress().GridView(settings => {
+        settings.Name = "GridViewUcretAyarlari";
+        settings.CallbackRouteValues = new { Controller = "UcretHesaplama", Action = "GridViewPartialUcretAyarlari" };
+
+        settings.SettingsEditing.AddNewRowRouteValues = new { Controller = "UcretHesaplama", Action = "GridViewPartialUcretAyarlariAddNew" };
+        settings.SettingsEditing.UpdateRowRouteValues = new { Controller = "UcretHesaplama", Action = "GridViewPartialUcretAyarlariUpdate" };
+        settings.SettingsEditing.DeleteRowRouteValues = new { Controller = "UcretHesaplama", Action = "GridViewPartialUcretAyarlariDelete" };
+        settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        settings.SettingsBehavior.ConfirmDelete = true;
+
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowNewButton = false;
+        settings.CommandColumn.ShowDeleteButton = false;
+        settings.CommandColumn.ShowEditButton = true;
+
+        settings.KeyFieldName = "id";
+
+        settings.Width = System.Web.UI.WebControls.Unit.Pixel(870);
+        settings.SettingsResizing.ColumnResizeMode = ColumnResizeMode.Control;
+        settings.SettingsBehavior.AllowEllipsisInText = true;
+
+        settings.SettingsPager.PageSize = 1000;
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = false;
+        settings.SettingsBehavior.AllowSelectByRowClick = false;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        //settings.Columns.Add("IsDetayi");
+        settings.Columns.Add("Aciklama");
+        settings.Columns.Add(c => {
+            c.FieldName = "Kullan";
+            c.ColumnType = MVCxGridViewColumnType.CheckBox;
+        });
+
+        settings.Columns.Add("UcretKodu");
+        settings.Columns.Add("Parametre");
+        settings.Columns.Add("IsDetayi").GroupIndex = 0;
+        settings.PreRender = (s, e) =>
+        {
+            MVCxGridView g = s as MVCxGridView;
+            if (g != null)
+                g.ExpandAll();
+        };
+        settings.HtmlRowPrepared = (sender, e) =>
+        {
+            MVCxGridView gridView = sender as MVCxGridView;
+            if (e.RowType == GridViewRowType.Group) e.Row.BackColor = System.Drawing.Color.LightGray;
+        };
+
+        settings.CellEditorInitialize = (s, e) =>
+        {
+            LIKHAB.Codes.Helpers.DevExpressUISettings.GridViewValidationSettings((ASPxEdit)e.Editor);
+
+            if (e.Column.FieldName == "UcretKodu") e.Editor.ReadOnly = true;
+            if (e.Column.FieldName == "Aciklama") e.Editor.ReadOnly = true;
+            if (e.Column.FieldName == "IsDetayi") e.Editor.ReadOnly = true;
+
+            if (e.Column.FieldName == "Kullan")
+            {
+                MVCxGridView grd = (MVCxGridView)s;
+                if (grd.GetRowValues(e.VisibleIndex, "UcretKodu").ToString() != HelperClasses.Enums.ucretKodu.ucrt_20_07.ToString())
+                {
+                    e.Editor.ClientVisible = false;
+                }
+            }
+        };
+
+    });
+    if (ViewData["EditError"] != null){
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

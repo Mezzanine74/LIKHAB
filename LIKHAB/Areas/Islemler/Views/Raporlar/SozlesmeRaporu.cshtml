@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Sozlesme Raporu";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+
+    var isId = LIKHAB.Codes.Helpers.HelperClasses.Genel.getParameterFromURL();
+}
+
+@section Header{
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.WebDocumentViewer }
+    )
+    @Html.DevExpress().GetScriptsEx(
+        new Script { ExtensionType = ExtensionType.WebDocumentViewer }
+    )
+}
+
+@{ 
+    var report = new LIKHAB.Reports.Xtra_TeknikHizmetSozlesmesi();
+    report.Parameters["ParametreIsId"].Value = isId;
+}
+
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewerSozlesmeRaporu";
+
+}).Bind(report).GetHtml()
+
+
+
+
+
+
+
+
+
+
+
+

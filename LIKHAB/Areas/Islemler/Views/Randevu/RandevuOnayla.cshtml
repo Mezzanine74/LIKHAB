@@ -1,0 +1,299 @@
+﻿
+@{
+    ViewBag.Title = "Randevu Onayla";
+    Layout = "~/Views/Shared/_mainLayout.cshtml";
+}
+
+@section Header{
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.FormLayout },
+        new StyleSheet { ExtensionType = ExtensionType.SchedulerStatusInfo },
+        new StyleSheet { ExtensionType = ExtensionType.Scheduler },
+        new StyleSheet { ExtensionType = ExtensionType.VerticalGrid },
+        new StyleSheet { ExtensionType = ExtensionType.GridView }
+        )
+
+    @Html.DevExpress().GetScriptsEx(
+    new Script { ExtensionType = ExtensionType.FormLayout },
+        new Script { ExtensionType = ExtensionType.SchedulerStatusInfo },
+        new Script { ExtensionType = ExtensionType.Scheduler },
+        new Script { ExtensionType = ExtensionType.VerticalGrid },
+        new Script { ExtensionType = ExtensionType.GridView }
+        )
+}
+
+@{
+    // variables
+
+    var randevuId = HelperClasses.Genel.getParameterFromURL("id");
+    Session["idOnaylanan"] = randevuId;
+
+    var isId = HelperClasses.Genel.getParameterFromURL("isId");
+
+    var hatalar = LIKHAB.Models.helper.Randevu.RandevuOnayHatalari(isId);
+
+    // ******************
+}
+
+<div style="width: 100%; overflow: hidden; margin:5px; padding: 5px;">
+    <div style="width: 520px; float: left;">
+
+        @Html.Action("VerticalGridPartialIsinKucukDetayi", "UcretHesaplama", new { id = isId })
+
+        <hr />
+
+        @Html.DevExpress().Button(btn =>
+       {
+           btn.Name = "btnIsleriSil";
+           btn.Text = "Is Bilgilerini Sil";
+           btn.ClientSideEvents.Click = "function(){isIleIlgiliTumBilgileriSil(" + @isId + ")}";
+       }).GetHtml()
+
+        @Html.DevExpress().Button(btn =>
+       {
+           btn.Name = "btnRandevusuzOnayla";
+           btn.Text = "Randevusuz Onayla";
+           btn.ClientSideEvents.Click = "function(){randevusuzOnayla(" + @isId + ")}";
+       }).GetHtml()
+
+    </div>
+    <div style="width: 520px; float: left;">
+
+        @Html.Action("VerticalGridPartialRandevuDetay", new { id = randevuId })
+
+    </div>
+
+    @{Html.RenderPartial("_RandevuEtiketListesi");}
+
+</div>
+
+@Html.DevExpress().LoadingPanel(
+    settings =>
+    {
+        settings.Name = "lpProcessing";
+        settings.Text = "Islem yapiliyor";
+        settings.Modal = true;
+        //settings.Styles.LoadingDiv.BackColor = System.Drawing.Color.White;
+    }).GetHtml()
+
+
+<script type="text/javascript">
+
+    var onayKodu = null, userId = null, onaylananSatirId = null;
+
+    function resetOnayParameters() {
+        onayKodu = null; userId = null; onaylananSatirId = null;
+    }
+
+    function onGridViewRandevuOnayDurumuBeginCallback(s, e) {
+
+        e.customArgs["onayKodu"] = onayKodu;
+        e.customArgs["userId"] = userId;
+        e.customArgs["onaylananSatirId"] = onaylananSatirId;
+
+        resetOnayParameters();
+    }
+
+    function onGridViewRandevuOnayDurumuEndCallback(s, e) {
+        if (GridViewRandevuOnayDurumu.cpOnayMesaji) {
+            DevExpress.ui.dialog.alert(GridViewRandevuOnayDurumu.cpOnayMesaji, 'Onay');
+        };
+    }
+
+    function cbOnayValueChanged(s, e, oK, uId, rId) {
+
+        DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+        var mesaj = s.GetChecked() ? 'Onaylamak istiyor musunuz?' : 'Onayi kaldirmak istiyor musunuz?';
+
+        console.log('cbOnayValueChanged');
+        DevExpress.ui.dialog.confirm(
+            mesaj,
+            "Onay").done(function (e) {
+                if (e) {
+                    // evetse yap yapacani
+                    console.log('kabul edildi');
+                    onayKodu = oK; userId = uId; onaylananSatirId = rId
+                    GridViewRandevuOnayDurumu.UpdateEdit();
+                    VerticalGridRandevuDetay.PerformCallback({ id: @randevuId });
+
+                } else {
+                    // hayirsa yap yapacani
+                    console.log('kabul edilmedi');
+                    s.SetChecked(!s.GetChecked());
+                    resetOnayParameters()
+                };
+            });
+
+    }
+
+    function SchedulerRandevuOnayCustomFormSubmit(s, e) {
+
+        if (IsValidAppointment())
+            SchedulerRandevuOnay.AppointmentFormSave({ confirmedDelete: true });
+    }
+
+    function IsValidAppointment() {
+
+        $.validator.unobtrusive.parse($("#formSubmitAppoitment"));
+        return $("#formSubmitAppoitment").valid();
+    }
+
+    // custom appoitment formun icindeki buttondan gelen
+    function SchedulerRandevuOnayCustomFormDeleteAll(s, event, randevuId) {
+
+        //console.log('silinecek randevu' + randevuId); return;
+
+        DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+        DevExpress.ui.dialog.confirm(
+            "Randevuyu ve ilintili isi silmek istediginizden emin misiniz?",
+            "Randevuyu ve ilintili isler silinecek").done(function (e) {
+                if (e) {
+                    // loading panel baslat
+                    lpProcessing.Show();
+
+                    SchedulerRandevuOnay.AppointmentFormDelete()
+                    // delete all data about this randevu
+                    //randevuId
+                    $.getJSON('@HelperClasses.LocalHost.getRandevuVeIlintiliBilgileriSilJSON()' + randevuId).done(function (data) {
+                        // loading panel bitir
+                        lpProcessing.Hide();
+
+                        if (data == true) {
+                            DevExpress.ui.dialog.alert('Randevuyu ve ilintili isler silindi', 'Silindi');
+                        } else {
+                            DevExpress.ui.dialog.alert('Islem basarisiz', 'Hata');
+                        }
+
+                    });
+
+                };
+            });
+    }
+
+    function SchedulerRandevuOnayAppointmentDeletingClick(s, event) {
+
+        if (!confirm('Silmek istediginizden emin misiniz?')) {
+            event.cancel = true;
+            SchedulerRandevuOnay.PerformCallback();
+        }
+    }
+
+    function SchedulerRandevuOnayPartialBeginCallback(s, e) {
+        e.customArgs['id'] = @randevuId;
+        e.customArgs['isId'] = @isId;
+    };
+
+    function SchedulerRandevuOnayPartialEndCallback(s, e) {
+
+            VerticalGridRandevuDetay.PerformCallback({ id: @randevuId });
+    };
+
+    $(function () {
+        isIleIlgiliTumBilgileriSil = function(id) {
+
+            DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+            DevExpress.ui.dialog.confirm(
+                "Is ve ilintili bilgileri silmek istediginizden emin misiniz?",
+                "Is ile ilintili bilgiler silinecek").done(function (e) {
+                    if (e) {
+                        // loading panel baslat
+                        lpProcessing.Show();
+
+                        $.getJSON('@HelperClasses.LocalHost.getIsIleIlintiliBilgileriSilJSON()' + id).done(function (data) {
+                            // loading panel bitir
+                            lpProcessing.Hide();
+
+                            if (data) {
+                                DevExpress.ui.dialog.alert(data.aciklama, data.baslik);
+                                VerticalGridIsinKucukDetayi.PerformCallback();
+                                VerticalGridRandevuDetay.PerformCallback();
+                                SchedulerRandevuOnay.PerformCallback();
+                            }
+                        })
+                    };
+            });
+        };
+
+        randevusuzOnayla = function(e) {
+
+            DevExpress.ui.dxOverlay.baseZIndex(50000);
+
+            DevExpress.ui.dialog.confirm(
+                "Randevusuz onaylamak istediginizden emin misiniz?",
+                "Randevusuz onaylanacak").done(function (e) {
+                    if (e) {
+                        // loading panel baslat
+                        lpProcessing.Show();
+
+                        $.getJSON('@HelperClasses.LocalHost.getRandevusuzOnaylaJSON()' + '@isId').done(function (data) {
+                            // loading panel bitir
+                            lpProcessing.Hide();
+
+                            if (data == true) {
+                                DevExpress.ui.dialog.alert('Randevusuz onaylandi', 'Onaylandi');
+                            } else {
+                                DevExpress.ui.dialog.alert('Islem basarisiz', 'Hata');
+                            }
+                        })
+                    };
+            });
+        };
+
+    })
+
+    $(function () {
+        var popup = $("#popupErrors").dxPopup({
+            title: 'Hata',
+            visible: false,
+            width: 500,
+            height: 200,
+        }).dxPopup('instance');
+
+        if ('@hatalar.hataVarmi' == 'True') {
+            popup.show();
+            btnIsleriSil.SetEnabled(false);
+            btnRandevusuzOnayla.SetEnabled(false);
+        };
+
+        if (@isId == 0) {
+            btnIsleriSil.SetEnabled(false);
+            btnRandevusuzOnayla.SetEnabled(false);
+        }
+
+    })
+
+</script>
+
+<div id="popupErrors">
+    <span style="font-size:large;">@hatalar.hataMesaji</span>
+</div>
+
+<script type="text/javascript">
+
+    var toolTipContext;
+
+    $(function () {
+
+        OnToolTipDisplaying = function (s, e) {
+            toolTipContext = e;
+            switch (e.toolTip.type) {
+                case MVCxSchedulerToolTipType.Appointment:
+                    OnAppointmentTipDisplaying(s, e);
+                    break;
+                case MVCxSchedulerToolTipType.AppointmentDrag:
+                    OnAppointmentDragTipDisplaying(s, e);
+                    break;
+                case MVCxSchedulerToolTipType.Selection:
+                    OnSelectionTipDisplaying(s, e);
+                    break;
+            }
+        }
+    })
+</script>
+
+@Html.Action("SchedulerRandevuOnayPartial")
+
+

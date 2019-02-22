@@ -1,0 +1,201 @@
+<script type="text/javascript">
+    function RibbonOnCommandExecuted(s, e) {
+        if (e.item.name == 'Kapat') { window.location.href = '/Account/LogOff'; };
+        if (e.item.name == 'Admin') { window.location.href = '/Admin/Main/Index'; };
+        if (e.item.name == 'UcretHesapla') { window.location.href = '/Islemler/UcretHesaplama/Hesapla'; };
+        if (e.item.name == 'Musteriler') { window.location.href = '/Islemler/Musteriler/Index'; };
+        if (e.item.name == 'TalepTakip') { window.location.href = '/Islemler/IsBilgileri/TalepTakip'; };
+        if (e.item.name == 'Ajanda') { window.location.href = '/Islemler/Randevu/Ajanda'; };
+        if (e.item.name == 'RandevuOnay') { window.location.href = '/Islemler/Randevu/RandevuOnayla'; };
+        if (e.item.name == 'KullaniciGirisi') { if (!@Request.IsAuthenticated.ToString().ToLower()) window.location.href = '/Account/Login'; };
+    }
+</script>
+
+@*<div class="headerTop">
+    <div class="templateTitle">
+        @Html.ActionLink("LIHKAB", "Index", "Home")
+    </div>
+    <div class="loginControl">
+        @Html.Partial("LogOnPartialView")
+    </div>
+</div>*@
+<div class="headerMenu">
+        @* DXCOMMENT: Configure the header menu *@
+    @*@Html.DevExpress().Menu(settings => {
+        settings.Name = "HeaderMenu";
+        settings.ItemAutoWidth = false;
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.Styles.Style.Border.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(0);
+        settings.Styles.Style.BorderTop.BorderWidth = System.Web.UI.WebControls.Unit.Pixel(1);
+    }).BindToXML(HttpContext.Current.Server.MapPath("~/App_Data/TopMenu.xml"), "/items/*").GetHtml()*@
+
+
+    @Html.DevExpress().Ribbon(settings =>
+{
+    settings.Name = "RibbonMenu";
+    settings.AllowMinimize = false;
+    settings.ShowFileTab = true;
+    settings.ShowGroupLabels = false;
+
+    settings.FileTabText = "Ana Sayfa";
+    settings.ClientSideEvents.FileTabClicked = "function(s,e){ window.location.href = '/' }";
+    settings.ClientSideEvents.CommandExecuted = "RibbonOnCommandExecuted";
+
+    var tabISLEMLER = settings.Tabs.Add("ISLEMLER");
+    var tabISLEMLERGroup = tabISLEMLER.Groups.Add("Tasks");
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.Name = "UcretHesapla";
+        i.Text = "Ucret Hesapla";
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID = IconID.MathCalculatenow32x32;
+    });
+
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Musteriler";
+        i.Text = "Musteriler";
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.BusinessobjectsBoperson32x32;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "TalepTakip";
+        i.Text = "Talep Takip";
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.ProgrammingProjectfile32x32office2013;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Ajanda";
+        i.Text = "Ajanda";
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.SchedulingAgendaview32x32;
+    });
+    if (User.IsInRole(LIKHAB.Codes.Helpers.HelperClasses.RoleNames.Patron))
+    {
+        tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+        {
+            i.BeginGroup = true;
+            i.Name = "RandevuOnay";
+            i.Text = "Randevu Onayi";
+            i.Size = RibbonItemSize.Large;
+            ((RibbonButtonItem)i).LargeImage.IconID =
+              IconID.ActionsApply32x32office2013;
+        });
+    }
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "FaturaServisi";
+        i.Text = "Fatura Servisi";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.ActionsSortbyinvoice32x32devav;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "GelenGidenEvrak";
+        i.Text = "Gelen/Giden Evrak";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.LayoutFolderpanel32x32devav;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Raporlar";
+        i.Text = "Raporlar";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.BusinessobjectsBoreport32x32;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "KasaDefteri";
+        i.Text = "Kasa Defteri";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.MiscellaneousCurrency32x32;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Grafikler";
+        i.Text = "Grafikler";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.ChartPiestylepie32x32office2013;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Takipciler";
+        i.Text = "Takipciler";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.ActionsNewgroup32x32devav;
+    });
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "Yardim";
+        i.Text = "Yardim";
+        i.ClientEnabled = false;
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID =
+          IconID.HelpIndex32x32gray;
+    });
+    if (User.IsInRole(LIKHAB.Codes.Helpers.HelperClasses.RoleNames.Administrator))
+    {
+        tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+        {
+            i.BeginGroup = true;
+            i.Name = "Admin";
+            i.Text = "Admin";
+            i.Size = RibbonItemSize.Large;
+            ((RibbonButtonItem)i).LargeImage.IconID =
+              IconID.EditCustomization32x32office2013;
+            // Scriptte URL tanimli
+        });
+    };
+    tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+    {
+        i.BeginGroup = true;
+        i.Name = "KullaniciGirisi";
+        i.Text = Request.IsAuthenticated ? LIKHAB.DataLayer.UserInfo.GetAdiSoyadiOfCurrentUser() : "Kullanici Girisi";
+        i.Size = RibbonItemSize.Large;
+        ((RibbonButtonItem)i).LargeImage.IconID = !Request.IsAuthenticated ? IconID.PeopleWalking32x32devav : IconID.PeopleCustomer32x32office2013;
+    });
+
+    if (Request.IsAuthenticated) {
+        tabISLEMLERGroup.Items.Add(MVCxRibbonItemType.ButtonItem, i =>
+        {
+            i.BeginGroup = true;
+            i.Name = "Kapat";
+            i.Text = "Kapat";
+            i.Size = RibbonItemSize.Large;
+            i.ClientEnabled = true;
+            ((RibbonButtonItem)i).LargeImage.IconID = IconID.ActionsClose32x32office2013;
+            // Scriptte URL tanimli
+        });
+    }
+
+}).GetHtml()
+
+</div>
+
